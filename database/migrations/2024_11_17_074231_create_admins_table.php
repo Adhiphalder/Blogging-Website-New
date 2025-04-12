@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id('admin_id');
             $table->string('admin_name');
+            $table->string('admin_email');
             $table->string('password');
             $table->string('profile_pic')->nullable(); 
             $table->timestamps();

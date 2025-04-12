@@ -30,7 +30,7 @@
         <!-- end top -->
         <div class="sidebar">
 
-          <a href="#" class="active">
+          <a href="#" >
             <span class="material-symbols-sharp">grid_view </span>
             <h3>Dashboard</h3>
           </a>
@@ -56,7 +56,7 @@
             <span class="material-symbols-sharp">report_gmailerrorred </span>
             <h3>Reports</h3>
           </a>
-          <a href="#">
+          <a href="#" class="active">
             <span class="material-symbols-sharp">Settings </span>
             <h3>Settings</h3>
           </a>
@@ -82,32 +82,43 @@
       <main>
         <h1>Profile</h1>
 
-        <div class="all-element-main-img">
+        
+        <form action="{{ route('admin.update.password') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="all-element-main-img">
             <div class="main-img-profile-img">
-                <input type="file" name="" id="main-img-profile-img" style="display: none;" accept="image/*">
+              {{-- <input type="file" name="" id="main-img-profile-img" style="display: none;" accept="image/*"> --}}
+              <input type="file" name="profile_pic" id="main-img-profile-img" style="display: none;" accept="image/*">
 
-                <label class="main-img-profile-img-lable" for="main-img-profile-img">
-                    <span style="font-size: 16px" id="upload-label">Profile Picture</span>
-                    <svg rpl="" fill="currentColor" height="16" icon-name="upload-outline" viewBox="0 0 20 20" width="16" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m10.513 5.63 3.929 3.928-.884.884-2.933-2.933V19h-1.25V7.51l-2.933 2.932-.884-.884L9.67 5.446l.589-.029.254.212Zm5.859-1.482A6.876 6.876 0 0 0 10 0a6.876 6.876 0 0 0-6.372 4.148A4.639 4.639 0 0 0 0 8.625a4.716 4.716 0 0 0 4.792 4.625V12A3.465 3.465 0 0 1 1.25 8.625 3.412 3.412 0 0 1 4.189 5.31l.364-.06.123-.35A5.607 5.607 0 0 1 10 1.25a5.607 5.607 0 0 1 5.324 3.65l.123.348.364.06a3.412 3.412 0 0 1 2.939 3.317A3.465 3.465 0 0 1 15.208 12v1.25A4.716 4.716 0 0 0 20 8.625a4.639 4.639 0 0 0-3.628-4.477Z"></path>
-                    </svg>
-                </label>
+              <label class="main-img-profile-img-lable" for="main-img-profile-img">
+                <span style="font-size: 16px" id="upload-label">Profile Picture</span>
+                <svg rpl="" fill="currentColor" height="16" icon-name="upload-outline" viewBox="0 0 20 20" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m10.513 5.63 3.929 3.928-.884.884-2.933-2.933V19h-1.25V7.51l-2.933 2.932-.884-.884L9.67 5.446l.589-.029.254.212Zm5.859-1.482A6.876 6.876 0 0 0 10 0a6.876 6.876 0 0 0-6.372 4.148A4.639 4.639 0 0 0 0 8.625a4.716 4.716 0 0 0 4.792 4.625V12A3.465 3.465 0 0 1 1.25 8.625 3.412 3.412 0 0 1 4.189 5.31l.364-.06.123-.35A5.607 5.607 0 0 1 10 1.25a5.607 5.607 0 0 1 5.324 3.65l.123.348.364.06a3.412 3.412 0 0 1 2.939 3.317A3.465 3.465 0 0 1 15.208 12v1.25A4.716 4.716 0 0 0 20 8.625a4.639 4.639 0 0 0-3.628-4.477Z"></path>
+                  </svg>
+              </label>
 
-                <div id="image-preview-profile"></div>
+              <div id="image-preview-profile">
+                @if($admin->profile_pic)
+                    <img src="{{ asset('storage/'.$admin->profile_pic) }}" alt="Profile Picture" style="width: 516px; cursor: pointer;">
+                @endif
+            </div>            
             </div>
-        </div>
+          </div>
 
-        <div class="admin-details">
-            <h1 >Mriganka Adhikary</h1>
+          <div class="admin-details">
+
+            {{-- <h1 >Mriganka Adhikary</h1> --}}
+            <h1>{{ $admin->admin_name }}</h1>
             <h1 >mriganka@gmail.com</h1>
+            {{-- <h1>{{ $admin->admin_email }}</h1> --}}
+            <div class="admin-password">
+              {{-- <input class="admin-password-input" type="password" name="new_password" id="new_password" placeholder="Update Password" value="{{ $admin->password }}" > --}}
+              <input class="admin-password-input" type="password" name="new_password" id="new_password" placeholder="Enter new password">
 
-            <form action="">
-                <div class="admin-password">
-                  <input class="admin-password-input" type="password" name="" id="" placeholder="Update Password">
-                  <button class="admin-password-button">Update</button>
-                </div>
-            </form>
-        </div>
+              <button class="admin-password-button" type="submit">Update</button>
+            </div>
+          </div>
+        </form>
 
 
       </main>

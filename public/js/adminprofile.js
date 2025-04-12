@@ -2,44 +2,49 @@
   IMAGE UPLODATION
 \*-----------------*/
 
-document.getElementById('main-img-profile-img').addEventListener('change', function() {
-    const fileInput = this;
+document.addEventListener('DOMContentLoaded', function () {
+    const fileInput = document.getElementById('main-img-profile-img');
     const imagePreview = document.getElementById('image-preview-profile');
     const label = document.getElementById('upload-label');
+    const existingImg = imagePreview.querySelector('img');
 
-    imagePreview.innerHTML = '';
-
-    if (fileInput.files && fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-
-        if (file.type.startsWith('image/')) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-
-                imagePreview.classList.add('active');
-                imagePreview.appendChild(img);
-            };
-
-            reader.readAsDataURL(file);
-
-            label.innerHTML = `File selected: ${file.name}`;
-        } else {
-            label.innerHTML = 'Please select an image';
-            imagePreview.classList.remove('active');
-            alert('Please upload a valid image file (jpg, png, gif, etc.).');
-        }
-    } else {
-        label.innerHTML = 'Click me to upload image';
-        imagePreview.classList.remove('active');
+    if (existingImg && existingImg.src.trim() !== '') {
+        imagePreview.classList.add('active');
     }
-});
 
+    fileInput.addEventListener('change', function () {
+        imagePreview.innerHTML = ''; 
 
-document.getElementById('image-preview-profile').addEventListener('click', function() {
-    document.getElementById('main-img-profile-img').click();
+        if (fileInput.files && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+
+                    imagePreview.classList.add('active');
+                    imagePreview.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+                label.innerHTML = `File selected: ${file.name}`;
+            } else {
+                label.innerHTML = 'Please select an image';
+                imagePreview.classList.remove('active');
+                alert('Please upload a valid image file (jpg, png, gif, etc.).');
+            }
+        } else {
+            label.innerHTML = 'Click me to upload image';
+            imagePreview.classList.remove('active');
+        }
+    });
+
+    imagePreview.addEventListener('click', function () {
+        fileInput.click();
+    });
 });
 
 

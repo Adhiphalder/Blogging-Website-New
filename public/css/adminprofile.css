@@ -456,7 +456,7 @@ main .recent_order a{
 }
 
 .main-img-profile-img {
-  position: absolute; /* Anchor for absolute preview */
+  position: absolute; 
 }
 
 .main-img-profile-img-lable {
@@ -504,7 +504,6 @@ main .recent_order a{
   align-items: center;
   margin-left: 29rem;
   margin-top: 2rem;
-  /* opacity: 1; */
 }
 
 #image-preview-profile > img {

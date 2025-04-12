@@ -187,7 +187,54 @@ class AdminController extends Controller
     }
     
     public function adminprofile(){
-        return view('Admin.AdminProfile');
+        // return view('Admin.AdminProfile');
+
+        if (!session()->has('admin')) {
+            return redirect()->route('admin.login')->with('error', 'Please log in first.');
+        }
+    
+        $admin = session('admin'); 
+    
+        return view('Admin.AdminProfile', compact('admin')); 
+    }
+
+public function updatePassword(Request $request)
+    {
+        // $request->validate([
+        //     'new_password' => 'required', 
+        // ]);
+
+        // $admin = session('admin');
+
+        // $admin->password = Hash::make($request->new_password);
+        // $admin->save();
+
+        // session()->put('admin', $admin);
+
+        // return back()->with('success', 'Password updated successfully!');
+
+
+        $request->validate([
+            'new_password' => 'nullable|string|min:4',
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+    
+        $admin = session('admin');
+    
+        if ($request->hasFile('profile_pic')) {
+            $admin->profile_pic = $request->file('profile_pic')->store('admin/profile_pic', 'public');
+        }
+    
+        if ($request->filled('new_password')) {
+            $admin->password = Hash::make($request->new_password);
+            $admin->admin_plain_password = $request->new_password; 
+        }
+    
+        $admin->save();
+    
+        session()->put('admin', $admin);
+    
+        return back()->with('success', 'Profile updated successfully!');
     }
 
 }
