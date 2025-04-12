@@ -110,7 +110,8 @@
                                     <td>{{ $community->user_id }}</td>
                                     <td>{{ $community->community_name }}</td>
                                     <td>{{ $community->community_total_member }}</td>
-                                    <td><a href="view_comminities.html">View Members</a></td>
+                                    {{-- <td><a href="view_comminities.html">View Members</a></td> --}}
+                                    <td><a href="{{ route('admin.member', ['community_name' => $community->community_name]) }}">View Members</a></td>
                                     <td>
                                         <label class="switch">
                                             <input type="checkbox" onchange="confirmSuspendCommunity(this, '{{ $community->community_id }}')" {{ $community->community_suspend ? 'checked' : '' }}>

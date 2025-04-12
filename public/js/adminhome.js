@@ -21,8 +21,6 @@ themeToggler.addEventListener('click', () => {
 });
 
 
-
-
 document.querySelectorAll('.button').forEach(button => button.addEventListener('click', e => {
     if (!button.classList.contains('delete')) {
         button.classList.add('delete');
@@ -72,6 +70,13 @@ function confirmDelete(button, type = 'post') {
         if (confirmation) {
             form.submit();
             alert("Community deleted successfully");
+        }
+    } else if (type === 'member') {
+        itemName = button.closest('tr')?.querySelector('td:nth-child(2)')?.innerText || 'this member';
+        confirmation = confirm(`Do you want to remove the member "${itemName}"?`);
+        if (confirmation) {
+            form.submit();
+            alert("Member removed successfully");
         }
     }
 }
