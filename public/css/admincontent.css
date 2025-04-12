@@ -441,7 +441,7 @@ Right Side
   border: 1px solid #333;
   border-radius: 10px;
   cursor: pointer;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .post-wall:hover{
@@ -540,10 +540,8 @@ Right Side
 
 .main-user-comments-zero-div{
   font-size: 23px;
-  margin-top: 8px;
   color: #ffff;
-  /* margin-bottom: 8px; */
-  margin-bottom: -13px;
+  margin-bottom: 25px;
 }
 
 .main-user-comments-first-div{

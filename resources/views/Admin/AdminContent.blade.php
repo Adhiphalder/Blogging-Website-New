@@ -109,7 +109,7 @@
                             @if(isset($community->user_id) && $post->user_id === $community->user_id)
                                 <span class="post-wall-admin" style="color: #d0d3da;">Admin</span>
                             @else
-                                <span class="post-wall-member" style="color: #d0d3da;">Members</span>
+                                <span class="post-wall-member" style="color: #d0d3da;">Member</span>
                             @endif
                         @endif
                     

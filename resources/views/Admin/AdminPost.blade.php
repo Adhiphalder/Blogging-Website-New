@@ -128,7 +128,7 @@
                                     </td>
                                     
                                     <td>
-                                        <a href="">{{ $post->comments_count }}</a>
+                                        {{ $post->comments_count }}
                                     </td>
                                     <td>{{ $post->created_at->format('d-m-Y') }} at {{ $post->created_at->format('H:i') }}</td>
                                     <!-- <td>dhchjdschsg</td>
