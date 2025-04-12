@@ -1193,6 +1193,7 @@ transition: all 0.3s ease;
 
 .profile-img2 img{
   position: relative;
+  object-fit: cover;
   width: 25px;
   height: 25px;
   flex-shrink: 0;

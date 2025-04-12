@@ -82,23 +82,57 @@
 
                 <div class="post-wall">
                     <div class="username">
-                        <div class="profile-img2"></div>
-                        <span class="username-hover">adhiphalder</span>
-                        <p> • 22 hr. ago</p>
+                        <div class="profile-img2">
+                            @if($post->user->profile_pic)
+                                <img src="{{ asset('storage/' . $post->user->profile_pic) }}" alt="Profile Picture">
+                            @else
+                                <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                            @endif
+                        </div>
+                        {{-- <span class="username-hover">adhiphalder</span> --}}
+                        @if($post && $post->user)
+                            <span class="username-hover">{{ $post->user->user_name }}</span>
+                        @endif
+
+                        {{-- <span class="username-hover"> | community name</span> --}}
+                        @if($post->community_id)
+                            <span class="username-hover"> | {{ $post->community->community_name }}</span>
+                        @endif
+
+                        {{-- <p> • 22 hr. ago</p> --}}
+                        <p> • {{ $post->created_at->diffForHumans() }}</p>
+
+                        {{-- <span class="post-wall-admin" style="color: #d0d3da;">Admin</span>
+                        <span class="post-wall-member" style="color: #d0d3da;">Members</span> --}}
+
+                        @if($post->community_id)
+                            @if(isset($community->user_id) && $post->user_id === $community->user_id)
+                                <span class="post-wall-admin" style="color: #d0d3da;">Admin</span>
+                            @else
+                                <span class="post-wall-member" style="color: #d0d3da;">Members</span>
+                            @endif
+                        @endif
+                    
     
                     </div>
                     
-                    <h3>Who are you? Without reference to your name, job, culture, hobbies, family and relationships?   </h3>
-                    <p class="post-para">Ok so I am 30 years old. Turned 30 back in March and I bought myself a PS5 after my 4 shit out finally after 12 years.
+                    {{-- <h3>Who are you? Without reference to your name, job, culture, hobbies, family and relationships?   </h3> --}}
+                    <h3 class="post-wall-first-h3">{{ $post->post_caption }}</h3>
+
+                    {{-- <p class="post-para">Ok so I am 30 years old. Turned 30 back in March and I bought myself a PS5 after my 4 shit out finally after 12 years.
     
                         I was excited about all the big games but was pleasantly entertained with Astro Bot. So clever! My kids would watch me play before bed and they just loved it.
                         
                         Never thought a sequel would come out. Finally got to try the new one and I am BLOWN AWAY at how absolutely creative and visually appealing this game is. I felt like I was a kid playing an all time classic for the first time. It’s bringing me so much joy!
                         
                         Don't have many gamers in my life. So I figured I would write this just to share how great I thought it is. Anyone else feel the same?
-                    </p>
+                    </p> --}}
+
+                    @if(!empty($post->post_desc))
+                        <p class="post-para">{{ $post->post_desc }}</p>
+                    @endif
     
-                    <div class="post-img">
+                    {{-- <div class="post-img">
                         <style>
                             .post-img::before {
                                 content: "";
@@ -115,7 +149,26 @@
                         </style>
     
                         <img src="/Images/4.jpeg" alt="">
-                    </div>
+                    </div> --}}
+
+                    @if(!empty($post->post_img))
+                    <a href="{{ route('comment', ['post_id' => $post->post_id]) }}">
+                        <div class="post-img" style="position: relative; display: inline-block; overflow: hidden;">
+                            <div style="
+                                position: absolute;
+                                top: -10%;
+                                left: -10%;
+                                height: 120%;
+                                width: 120%;
+                                background: url('{{ asset("storage/" . $post->post_img) }}') no-repeat center;
+                                background-size: cover;
+                                filter: blur(20px);
+                                z-index: 1;
+                            "></div>
+                            <img src="{{ asset('storage/' . $post->post_img) }}" alt="Post Image" style="position: relative; z-index: 2;">
+                        </div>
+                    </a>
+                @endif
     
                 </div> 
 
@@ -123,8 +176,11 @@
 
                 {{-- COMMENTS --}}
 
+                <div class="main-user-comments-zero-div">
+                    Comments
+                </div>
 
-                <div class="main-user-comments">
+                {{-- <div class="main-user-comments">
                     <div class="main-user-comments-first-div">
                         <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture">
                         <a href="#">
@@ -136,89 +192,35 @@
                     <div class="main-user-comments-second-div">
                         Teri ma ki chut.
                     </div>
-                </div>
-
-
-                <div class="main-user-comments">
-                    <div class="main-user-comments-first-div">
-                        <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture">
-                        <a href="#">
-                            <div class="main-user-comments-first-div-user-name">r/FoodyHub</div>
-                        </a>
-
-                        <div>• 22 Hr ago</div>
-                    </div>
-                    <div class="main-user-comments-second-div">
-                        Teri ma ki chut.
-                    </div>
-                </div>
-
-
-                <div class="main-user-comments">
-                    <div class="main-user-comments-first-div">
-                        <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture">
-                        <a href="#">
-                            <div class="main-user-comments-first-div-user-name">r/FoodyHub</div>
-                        </a>
-
-                        <div>• 22 Hr ago</div>
-                    </div>
-                    <div class="main-user-comments-second-div">
-                        Teri ma ki chut.
-                    </div>
-                </div>
-
-
-                <div class="main-user-comments">
-                    <div class="main-user-comments-first-div">
-                        <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture">
-                        <a href="#">
-                            <div class="main-user-comments-first-div-user-name">r/FoodyHub</div>
-                        </a>
-
-                        <div>• 22 Hr ago</div>
-                    </div>
-                    <div class="main-user-comments-second-div">
-                        Teri ma ki chut.
-                    </div>
-                </div>
-
-                
-
-
-
-
-                {{-- <div class="post-wall2">
-                    <div class="username">
-                        <div class="profile-img2"></div>
-                        <span class="username-hover">adhiphalder</span>
-                        <p> • 22 hr. ago</p>
-                    
-                    </div>
-                    <h3>Hey everyone! I'm a 19-year-old college student. Recently, I'm down by 3,000 INR in trading (I know that might not seem like a lot to some, but for me, it is). I've earned this money by writing assignments for friends, selling my programs and assignment sheets, and doing odd jobs for people around me. So, this is truly my hard-earned money, but due to my urge to learn everything, I've ended up with this loss.   </h3>
-    
-                </div> 
-
-                <div class="post-wall2">
-                    <div class="username">
-                        <div class="profile-img2"></div>
-                        <span class="username-hover">adhiphalder</span>
-                        <p> • 22 hr. ago</p>
-                    
-                    
-                    </div>
-                    
-                    <h3>Who are you? Without reference to your name, job, culture, hobbies, family and relationships? dhfvshfvshvfskfshfshf   </h3>
-                    <p class="post-para">Ok so I am 30 years old. Turned 30 back in March and I bought myself a PS5 after my 4 shit out finally after 12 years.
-    
-                        I was excited about all the big games but was pleasantly entertained with Astro Bot. So clever! My kids would watch me play before bed and they just loved it.
-                        
-                        Never thought a sequel would come out. Finally got to try the new one and I am BLOWN AWAY at how absolutely creative and visually appealing this game is. I felt like I was a kid playing an all time classic for the first time. It’s bringing me so much joy!
-                        
-                        Don’t have many gamers in my life. So I figured I would write this just to share how great I thought it is. Anyone else feel the same?</p>
-    
-    
                 </div> --}}
+
+                @if ($post->comments->isEmpty())
+                    <div class="not-found">
+                        <img src="https://www.redditstatic.com/shreddit/assets/hmm-snoo.png" alt="">
+                        <h3>Looks like there is no comment yet</h3> 
+                    </div>
+                @else
+                    @foreach ($post->comments as $comment)
+                        <div class="main-user-comments">
+                            <div class="main-user-comments-first-div">
+                                <img src="{{ $comment->user->profile_pic ? asset('storage/' . $comment->user->profile_pic) : 'https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}" alt="Profile Picture">
+                                @if(auth()->id() == $comment->user->user_id)
+                                    <a href="{{ route('profile') }}">
+                                        <div class="main-user-comments-first-div-user-name">{{ $comment->user->user_name }}</div>
+                                    </a>
+                                @else
+                                    <a href="{{ route('outprofile', ['username' => $comment->user->user_name]) }}">
+                                        <div>{{ $comment->user->user_name }}</div>
+                                    </a>
+                                @endif
+                                <div>• {{ $comment->created_at->diffForHumans() }}</div>
+                            </div>
+                            <div class="main-user-comments-second-div">
+                                {{ $comment->comment }}
+                            </div>
+                        </div>
+                    @endforeach
+                @endif            
 
 
             </main>

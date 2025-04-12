@@ -76,7 +76,9 @@ Route::delete('/admin/community/delete/{id}', [AdminController::class, 'deleteCo
 
 Route::get('/vcommunity', [AdminController::class, 'viewcommunity']);
 
-Route::get('/admincontent', [AdminController::class, 'admincontent'])->name('admin.content');
+// Route::get('/admincontent', [AdminController::class, 'admincontent'])->name('admin.content');
+
+Route::get('/admin/content/{post_id?}', [AdminController::class, 'admincontent'])->name('admin.content');
 
 Route::get('/vpost', [AdminController::class, 'viewpost']);
 

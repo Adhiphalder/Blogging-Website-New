@@ -123,7 +123,8 @@
                                         @if($post->post_img)
                                             <img src="{{ asset('storage/' . $post->post_img) }}" alt="Post Image" onclick="openPopup(this)">
                                         @endif
-                                        <a href="{{ route('admin.content') }}">View Posts</a>
+                                        {{-- <a href="{{ route('admin.content') }}">View Posts</a> --}}
+                                        <a href="{{ route('admin.content', ['post_id' => $post->post_id]) }}">View Post</a>
                                     </td>
                                     
                                     <td>

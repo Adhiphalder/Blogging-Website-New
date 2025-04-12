@@ -176,9 +176,43 @@ class AdminController extends Controller
         return view('Admin.ViewCommunities');
     }
 
-    public function admincontent()
+    public function admincontent($post_id = null)
     {
-        return view('Admin.AdminContent');
+        // return view('Admin.AdminContent');
+
+
+
+        // if (!session()->has('admin')) {
+        //     return redirect()->route('admin.login')->with('error', 'Please log in first.');
+        // }
+    
+        // $post = null;
+    
+        // if ($post_id) {
+        //     $post = Post::with('user', 'community', 'comments')->find($post_id);
+        //     if (!$post) {
+        //         return back()->with('error', 'Post not found.');
+        //     }
+        // }
+    
+        // return view('Admin.AdminContent', compact('post'));
+
+
+        if (!session()->has('admin')) {
+            return redirect()->route('admin.login')->with('error', 'Please log in first.');
+        }
+    
+        $post = null;
+    
+        if ($post_id) {
+            $post = Post::with(['user', 'community', 'comments.user'])->find($post_id);
+    
+            if (!$post) {
+                return back()->with('error', 'Post not found.');
+            }
+        }
+    
+        return view('Admin.AdminContent', compact('post'));
     }    
 
     public function viewpost()
@@ -201,40 +235,40 @@ class AdminController extends Controller
 public function updatePassword(Request $request)
     {
         // $request->validate([
-        //     'new_password' => 'required', 
+        //     'new_password' => 'nullable|string|min:4',
+        //     'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         // ]);
-
+    
         // $admin = session('admin');
-
-        // $admin->password = Hash::make($request->new_password);
+    
+        // if ($request->hasFile('profile_pic')) {
+        //     $admin->profile_pic = $request->file('profile_pic')->store('admin/profile_pic', 'public');
+        // }
+    
+        // if ($request->filled('new_password')) {
+        //     $admin->password = Hash::make($request->new_password);
+        //     $admin->admin_plain_password = $request->new_password; 
+        // }
+    
         // $admin->save();
-
+    
         // session()->put('admin', $admin);
-
-        // return back()->with('success', 'Password updated successfully!');
+    
+        // return back()->with('success', 'Profile updated successfully!');
 
 
         $request->validate([
-            'new_password' => 'nullable|string|min:4',
-            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-    
-        $admin = session('admin');
-    
-        if ($request->hasFile('profile_pic')) {
-            $admin->profile_pic = $request->file('profile_pic')->store('admin/profile_pic', 'public');
-        }
-    
-        if ($request->filled('new_password')) {
-            $admin->password = Hash::make($request->new_password);
-            $admin->admin_plain_password = $request->new_password; 
-        }
-    
-        $admin->save();
-    
-        session()->put('admin', $admin);
-    
-        return back()->with('success', 'Profile updated successfully!');
+             'new_password' => 'required', 
+         ]);
+ 
+         $admin = session('admin');
+ 
+         $admin->password = Hash::make($request->new_password);
+         $admin->save();
+ 
+         session()->put('admin', $admin);
+ 
+         return back()->with('success', 'Password updated successfully!');
     }
 
 }

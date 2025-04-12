@@ -66,9 +66,6 @@
             <span class="material-symbols-sharp">Logout </span>
             <h3>Logout</h3>
           </a>
-
-
-
         </div>
 
       </aside>
