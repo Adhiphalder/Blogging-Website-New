@@ -262,7 +262,7 @@
                     <div class="updates">
                         <div class="update">
                             <div class="profile-photo">
-                                <img src="Pictures/agamani.jpg" alt="" />
+                                <img src="/Pictures/agamani.jpg" alt="" />
                             </div>
                             <div class="message">
                                 <p><b>Agamani</b> Recently post a picture</p>
@@ -270,7 +270,7 @@
                         </div>
                         <div class="update">
                             <div class="profile-photo">
-                                <img src="Pictures/Adhip.jpg" alt="" />
+                                <img src="/Pictures/Adhip.jpg" alt="" />
                             </div>
                             <div class="message">
                                 <p><b>Adhip</b> Upload profile picture</p>
@@ -278,7 +278,7 @@
                         </div>
                         <div class="update">
                             <div class="profile-photo">
-                                <img src="Pictures/my.jpg" alt="" />
+                                <img src="/Pictures/my.jpg" alt="" />
                             </div>
                             <div class="message">
                                 <p><b>Mriganka</b> Comment on Adhip's post</p>
