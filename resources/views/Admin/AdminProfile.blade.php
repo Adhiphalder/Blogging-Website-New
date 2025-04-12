@@ -97,7 +97,7 @@
 
               <div id="image-preview-profile">
                 @if($admin->profile_pic)
-                    <img src="{{ asset('storage/'.$admin->profile_pic) }}" alt="Profile Picture" style="width: 516px; cursor: pointer;">
+                    <img src="{{ asset('storage/'.$admin->profile_pic) }}" alt="Profile Picture" style="cursor: pointer;">
                 @endif
             </div>            
             </div>
