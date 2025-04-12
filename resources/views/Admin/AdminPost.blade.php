@@ -109,7 +109,14 @@
                                 <tr>
                                     <td>{{ $post->post_id }}</td>
                                     <td>{{ $post->user_id }}</td>
-                                    <td>{{ $post->community_id }}</td>
+                                    {{-- <td>{{ $post->community_id }}</td> --}}
+                                    <td>
+                                        @if($post->community)
+                                            {{ $post->community->community_name }} 
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
 
                                     <div id="imagePopup" class="popup">
                                         <span class="close">&times;</span>

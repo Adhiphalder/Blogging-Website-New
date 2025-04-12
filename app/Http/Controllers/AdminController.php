@@ -7,6 +7,7 @@ use App\Models\Communities;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Post;
+use Carbon\Carbon;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -171,9 +172,57 @@ class AdminController extends Controller
     }
 
 
-    public function adminmember()
+    public function adminmember($community_name)
     {
-        return view('Admin.AdminMember');
+        // return view('Admin.AdminMember');
+
+        $community = Communities::where('community_name', $community_name)->first();
+
+        if (!$community) {
+            return redirect()->back()->with('error', 'Community not found.');
+        }
+    
+        $members = \DB::table('join')
+            ->join('users', 'join.user_id', '=', 'users.user_id')
+            ->where('join.community_id', $community->community_id)
+            ->select('users.user_id', 'users.user_name', 'users.created_at as doj')
+            ->get();
+    
+        $memberData = [];
+        foreach ($members as $member) {
+            $totalPosts = Post::where('user_id', $member->user_id)
+                              ->where('community_id', $community->community_id)
+                              ->count();
+    
+            $dojFormatted = Carbon::parse($member->doj)->format('d-m-Y');
+    
+            $memberData[] = [
+                'user_id' => $member->user_id,
+                'member_name' => $member->user_name,
+                'doj' => $dojFormatted, 
+                'total_posts' => $totalPosts,
+            ];
+        }
+    
+        return view('Admin.AdminMember', compact('memberData', 'community'));
+
+    }
+
+    public function deleteMember($userId)
+    {
+
+
+        $membership = \DB::table('join')->where('user_id', $userId)->first();
+
+        if ($membership) {
+            \DB::table('join')->where('user_id', $userId)->delete();
+    
+            Communities::where('community_id', $membership->community_id)->decrement('community_total_member');
+    
+            return redirect()->back()->with('success', 'Member removed successfully.');
+        }
+    
+        return redirect()->back()->withErrors(['error' => 'Member not found.']);
     }
 
     public function admincontent($post_id = null)
