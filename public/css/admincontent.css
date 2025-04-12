@@ -136,7 +136,7 @@ b{
   background: var(--clr-white);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 1.4rem;
  }
 
@@ -392,7 +392,12 @@ Right Side
   text-align: right;
 }
 .info{
-  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2px;
+
 }
 .right  .info h3{
   color: var(--clr-dark);
@@ -424,6 +429,16 @@ Right Side
    grid-template-columns: 2.6rem auto;
    gap: 1rem;
    margin-bottom: 1rem;
+}
+
+.profile-photo{
+  width: fit-content;
+  height: fit-content;
+}
+
+.update{
+  display: flex;
+  align-items: center;
 }
 
 
