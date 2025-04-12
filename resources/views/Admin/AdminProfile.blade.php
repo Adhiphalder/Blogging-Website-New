@@ -107,8 +107,8 @@
 
             {{-- <h1 >Mriganka Adhikary</h1> --}}
             <h1>{{ $admin->admin_name }}</h1>
-            <h1 >mriganka@gmail.com</h1>
-            {{-- <h1>{{ $admin->admin_email }}</h1> --}}
+            {{-- <h1 >mriganka@gmail.com</h1> --}}
+            <h1>{{ $admin->admin_email }}</h1>
             <div class="admin-password">
               {{-- <input class="admin-password-input" type="password" name="new_password" id="new_password" placeholder="Update Password" value="{{ $admin->password }}" > --}}
               <input class="admin-password-input" type="password" name="new_password" id="new_password" placeholder="Enter new password">

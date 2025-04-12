@@ -566,6 +566,16 @@ Right Side
   scrollbar-width: none;  /* Firefox */
 }
 
+.profile-photo{
+  width: fit-content;
+  height: fit-content;
+}
+
+.update{
+  display: flex;
+  align-items: center;
+}
+
 
 #quantity {
   background-color: transparent;
