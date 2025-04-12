@@ -29,36 +29,37 @@
         </div>
         <!-- end top -->
         <div class="sidebar">
-
-          <a href="#" >
+          <a href="/dashboard">
             <span class="material-symbols-sharp">grid_view </span>
             <h3>Dashboard</h3>
           </a>
-          <a href="admin_user.html">
-            <span class="material-symbols-sharp">person_outline </span>
-            <h3>Users</h3>
+          <a href="/adminuser" >
+              <span class="material-symbols-sharp">person_outline </span>
+              <h3>Users</h3>
           </a>
-          <a href="admin_post.html">
-            <span class="material-symbols-sharp">insights </span>
-            <h3>Posts</h3>
+          <a href="/adminpost">
+              <span class="material-symbols-sharp">insights </span>
+              <h3>Posts</h3>
+          </a>
+          <a href="/admincommunity">
+              <span class="material-symbols-sharp">receipt_long </span>
+              <h3>Communities</h3>
           </a>
           <a href="#">
-            <span class="material-symbols-sharp">receipt_long </span>
-            <h3>Communities</h3>
-          </a>
-          <a href="#">
-            <span class="material-symbols-sharp">mail_outline </span>
-            <h3>Messages</h3>
-            <span class="msg_count">14</span>
+              <span class="material-symbols-sharp">mail_outline </span>
+              <h3>Messages</h3>
+              <span class="msg_count">14</span>
           </a>
 
           <a href="#">
-            <span class="material-symbols-sharp">report_gmailerrorred </span>
-            <h3>Reports</h3>
+              <span class="material-symbols-sharp">report_gmailerrorred </span>
+              <h3>Reports</h3>
           </a>
-          <a href="#" class="active">
-            <span class="material-symbols-sharp">Settings </span>
-            <h3>Settings</h3>
+
+          <a href="/adminprofile" class="active">
+              <span class="material-symbols-sharp">settings </span>
+              <h3>settings</h3>
+
           </a>
 
           <a href="{{ route('admin.logout') }}">

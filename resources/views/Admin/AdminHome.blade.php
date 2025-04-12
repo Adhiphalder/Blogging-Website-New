@@ -56,7 +56,7 @@
             <span class="material-symbols-sharp">report_gmailerrorred </span>
             <h3>Reports</h3>
           </a>
-          <a href="#">
+          <a href="/adminprofile">
             <span class="material-symbols-sharp">Settings </span>
             <h3>Settings</h3>
           </a>
@@ -162,7 +162,8 @@
           
 
 
-
+          <div class="recent-order-scroll">
+            
             <table>
               <thead>
                 <tr>
@@ -184,8 +185,8 @@
                     <td>bdsfhdfhb</td>
                     <td>bdsfhdfhb</td> --}}
                     
-
-
+  
+  
                     <td>{{ $user->user_id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->contact_no ?? 'N/A' }}</td> 
@@ -199,8 +200,8 @@
                             <div class="slider-card-face slider-card-front"></div>
                             <div class="slider-card-face slider-card-back"></div>
                         </div>
-                     </label>
-
+                      </label>
+  
                     </td>
                     <td class="button-container">
                       <!-- <button class="edit">Edit</button>  -->
@@ -220,14 +221,18 @@
                             </span>
                         </button>
                     </form>
-
+  
                     </td>
                   </tr>
                 @endforeach
-
+  
                 
               </tbody>
             </table>
+
+          </div>
+
+
 
           <!-- <a href="#">Show All</a> -->
         </div>
@@ -298,6 +303,32 @@
               </div>
             </div>
             
+            <div class="update">
+              <div class="profile-photo">
+                <img src="Pictures/agamani.jpg" alt="" />
+              </div>
+              <div class="message">
+                <p><b>Agamani</b> Recently post a picture</p>
+              </div>
+            </div>
+
+            <div class="update">
+              <div class="profile-photo">
+                <img src="Pictures/Adhip.jpg" alt="" />
+              </div>
+              <div class="message">
+                <p><b>Adhip</b> Upload his profile picture</p>
+              </div>
+            </div>
+
+            <div class="update">
+              <div class="profile-photo">
+                <img src="Pictures/my.jpg" alt="" />
+              </div>
+              <div class="message">
+                <p><b>Mriganka</b> Comment on Adhip's post</p>
+              </div>
+            </div>
             
 
           </div>

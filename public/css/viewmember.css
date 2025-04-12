@@ -1150,7 +1150,7 @@ transition: all 0.3s ease;
 
 .section-dropdown3-profile-text p{
   color: #ffffff7e;
-  margin-left: -9px;
+  /* margin-left: -9px; */
   font-size: 12px;
   font-weight: 0;
 }
@@ -1347,8 +1347,7 @@ main{
 }
 
 a:hover .com-follower-profile-text-inner-span {
-  color: #878ed8; /* Change to your preferred hover color */
-  /* text-decoration: underline; */
+  color: #878ed8; 
 }
 
 .toast {
