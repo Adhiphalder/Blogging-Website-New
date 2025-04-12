@@ -17,7 +17,8 @@
 
                 <div class="top">
                     <div class="logo">
-                        <h2>Hi, <span class="danger">ADHIP</span> </h2>
+                        {{-- <h2>Hi, <span class="danger">ADHIP</span> </h2> --}}
+                     <h2>Hi, <span class="danger">{{ strtoupper(explode(' ', session('admin')->admin_name)[0]) }}</span></h2>
                     </div>
                     <div class="close" id="close_btn">
                         <span class="material-symbols-sharp">
@@ -59,9 +60,9 @@
                         <h3>settings</h3>
                     </a>
 
-                    <a href="#">
-                        <span class="material-symbols-sharp">logout </span>
-                        <h3>logout</h3>
+                    <a href="{{ route('admin.logout') }}">
+                        <span class="material-symbols-sharp">Logout </span>
+                        <h3>Logout</h3>
                     </a>
 
 
@@ -245,7 +246,8 @@
                     </div>
                     <div class="profile">
                         <div class="info">
-                            <p><b>Adhip</b></p>
+                            {{-- <p><b>Adhip</b></p> --}}
+                            <p><b>{{(explode(' ', session('admin')->admin_name)[0]) }}</b></p>
                             <p>Admin</p>
                             <small class="text-muted"></small>
                         </div>

@@ -87,7 +87,7 @@
                         <span class="material-symbols-sharp">insights </span>
                         <h3>Posts</h3>
                     </a>
-                    <a href="/admincommunity">
+                    <a href="/admincommunity" class="active">
                         <span class="material-symbols-sharp">receipt_long </span>
                         <h3>Communities</h3>
                     </a>
@@ -130,7 +130,8 @@
 
                 <!-- end insights -->
                 <div class="recent_order">
-                    <h2>Total Members</h2>
+                    {{-- <h2>Total Members</h2> --}}
+                    <h2>Community Name</h2>
 
 
 
@@ -141,8 +142,8 @@
                                 <th> User ID</th>
                                 <th>Member's Name</th>
                                 <th> DOJ</th>
-                                <th>View Posts</th>
-                                <th>Suspend Member</th>
+                                <th>To Posts</th>
+                                {{-- <th>Suspend Member</th> --}}
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -153,14 +154,17 @@
                                 <td>fsdfsf</td>
                                 <td>sdfsfs</td>
                                 <td>dfdsfd</td>
-                                <td><a href="view_posts.html">View Posts</a></td>
-                                <td>
-                                    <div class="days">
-                                        Days :
-                                        <input type="number" id="quantity" name="quantity" min="0" max="365" step="1"
-                                            value="0">
-                                    </div>
-                                </td>
+                                {{-- <td><a href="view_posts.html">View Posts</a></td> --}}
+                                {{-- <td>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <div class="slider"></div>
+                                        <div class="slider-card">
+                                        <div class="slider-card-face slider-card-front"></div>
+                                        <div class="slider-card-face slider-card-back"></div>
+                                        </div>
+                                    </label>
+                                </td> --}}
                                 <td class="button-container">
                                     <!-- <button class="edit">Edit</button>  -->
 

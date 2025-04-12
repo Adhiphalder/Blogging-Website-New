@@ -74,9 +74,7 @@ Route::post('/suspend-community/{id}', [AdminController::class, 'suspendCommunit
 
 Route::delete('/admin/community/delete/{id}', [AdminController::class, 'deleteCommunity'])->name('admin.deleteCommunity');
 
-Route::get('/vcommunity', [AdminController::class, 'viewcommunity']);
-
-// Route::get('/admincontent', [AdminController::class, 'admincontent'])->name('admin.content');
+Route::get('/adminmember', [AdminController::class, 'adminmember']);
 
 Route::get('/admin/content/{post_id?}', [AdminController::class, 'admincontent'])->name('admin.content');
 

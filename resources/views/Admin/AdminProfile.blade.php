@@ -80,6 +80,35 @@
       <main>
         <h1>Profile</h1>
 
+        @if(session('success'))
+          <div id="toast-message" style="
+              position: fixed;
+              top: 20px;
+              left: 56%;
+              transform: translateX(-50%);
+              background-color: #38a169;
+              color: white;
+              padding: 12px 20px;
+              border-radius: 8px;
+              font-weight: bold;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+              z-index: 9999;
+              transition: opacity 0.5s ease-in-out;
+          ">
+              {{ session('success') }}
+          </div>
+      
+          <script>
+              setTimeout(() => {
+                  const toast = document.getElementById('toast-message');
+                  if (toast) {
+                      toast.style.opacity = '0';
+                      setTimeout(() => toast.remove(), 500);
+                  }
+              }, 3000);
+          </script>
+      @endif    
+
         
         <form action="{{ route('admin.update.password') }}" method="POST" enctype="multipart/form-data">
           @csrf
@@ -146,10 +175,13 @@
               <small class="text-muted"></small>
             </div>
             <div class="profile-photo">
-              <a href="">
-                <img src="/Images/profile-1.jpg" alt="" />
-              </a>
-
+                <a href="/adminprofile">
+                  @if($admin->profile_pic)
+                      <img src="{{ asset('storage/' . $admin->profile_pic) }}" alt="Admin Profile Picture" />
+                  @else
+                      <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Default Profile Picture" />
+                  @endif
+              </a> 
             </div>
           </div>
         </div>
