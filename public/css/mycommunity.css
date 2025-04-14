@@ -2388,11 +2388,14 @@ transition: all 0.3s ease;
   transform: translateY(20px);
 }
 
+.create2-a{
+  position: relative;
+  left: 106px;
+}
 
 .create2 {
   /* position: absolute; */
-  position: relative;
-  left: 106px;
+
   font-family: 'Roboto', sans-serif;
   font-weight: 900;
   font-size: 15px;

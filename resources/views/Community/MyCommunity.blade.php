@@ -395,10 +395,11 @@
                     <h1 style="overflow: hidden;  width: 20rem;">r/{{ $community->community_name }}</h1> 
                     <p class="profile-info1-p">{{ $categoryMappings[$community->category] ?? $community->category }}</p>
                 </div>
-                
-                <button href="{{ route ('create')}}" class="create2" style="right: 292px; top:190px">
-                    <i class="fa-solid fa-plus"></i> <span>Create Post</span>
-                </button>
+                <a href="/create" class="create2-a">
+                    <button href="{{ route ('create')}}" class="create2" style="right: 292px; top:190px">
+                        <i class="fa-solid fa-plus"></i> <span>Create Post</span>
+                    </button>
+                </a>
             </div>
 
 

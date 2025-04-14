@@ -161,7 +161,7 @@
           <h2>Recent Users</h2>
           
           @if($users->isEmpty())
-            <div class="main_wrapper">
+            <div class="main_wrapper" style="top:31rem; left:46rem;">
               <div class="main">
                 <div class="antenna">
                   <div class="antenna_shadow"></div>
