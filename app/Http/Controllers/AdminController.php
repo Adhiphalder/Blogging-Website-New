@@ -293,7 +293,11 @@ class AdminController extends Controller
         }
     
         return back()->with('info', 'No changes made.');
-
+        
+    }
+    
+    public function adminfollower(){
+        return view('Admin.AdminFollower');
     }
 
 }

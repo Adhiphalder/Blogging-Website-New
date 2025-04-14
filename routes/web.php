@@ -86,6 +86,8 @@ Route::get('/vpost', [AdminController::class, 'viewpost']);
 
 Route::get('/adminprofile', [AdminController::class, 'adminprofile']);
 
+Route::get('/adminfollower', [AdminController::class, 'adminfollower']);
+
 Route::post('/admin/update-password', [AdminController::class, 'updatePassword'])->name('admin.update.password');
 
 /*------------------------*\

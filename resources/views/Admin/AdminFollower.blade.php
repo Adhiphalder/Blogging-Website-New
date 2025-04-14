@@ -8,8 +8,9 @@
         <title>Welcome</title>
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
-        <link rel="stylesheet" href="{{asset('css/admincontent.css')}}">
+        <link rel="stylesheet" href="{{asset('css/adminhome.css')}}">
         <link rel="stylesheet" href="{{asset('css/preloader.css')}}">
+        <link rel="shortcut icon" href="{{asset('/Pictures/inkspire.png')}}" type="image/svg+xml">
     </head>
 
     <body>
@@ -57,6 +58,7 @@
             </script>
         </div>
 
+
         <div class="container">
             <aside>
 
@@ -85,7 +87,7 @@
                         <span class="material-symbols-sharp">insights </span>
                         <h3>Posts</h3>
                     </a>
-                    <a href="/admincommunity">
+                    <a href="/admincommunity" class="active">
                         <span class="material-symbols-sharp">receipt_long </span>
                         <h3>Communities</h3>
                     </a>
@@ -123,70 +125,74 @@
             --------------- -->
 
             <main>
-                <h1>View Posts</h1>
+                <h1>View Follower</h1>
 
-                <div class="post-wall">
-                    <div class="username">
-                        <div class="profile-img2"></div>
-                        <span class="username-hover">adhiphalder</span>
-                        <p> • 22 hr. ago</p>
-    
-                    </div>
-                    
-                    <h3>This is a title</h3>
-    
-                    <div class="post-img" style="position: relative; display: inline-block; overflow: hidden;">
-                        <div style="
-                            position: absolute;
-                            top: -10%;
-                            left: -10%;
-                            height: 120%;
-                            width: 120%;
-                            background: url('{{ asset('Images/4.jpeg') }}') no-repeat center;
-                            background-size: cover;
-                            filter: blur(20px);
-                            z-index: 1;
-                        "></div>
-                        <img src="{{ asset('Images/4.jpeg') }}" alt="Post Image"style="position: relative; z-index: 2;">
-                    </div>
-    
-                </div> 
 
-                <div class="post-wall2">
-                    <div class="username">
-                        <div class="profile-img2"></div>
-                        <span class="username-hover">adhiphalder</span>
-                        <p> • 22 hr. ago</p>
-                    
-                    </div>
-                    <h3>Hey everyone! I'm a 19-year-old college student. Recently, I'm down by 3,000 INR in trading (I know that might not seem like a lot to some, but for me, it is). I've earned this money by writing assignments for friends, selling my programs and assignment sheets, and doing odd jobs for people around me. So, this is truly my hard-earned money, but due to my urge to learn everything, I've ended up with this loss.   </h3>
-    
-                </div> 
+                <!-- end insights -->
+                <div class="recent_order">
+                    {{-- <h2>Total Members</h2> --}}
+                    <h2>Followers Name</h2>
 
-                <div class="post-wall2">
-                    <div class="username">
-                        <div class="profile-img2"></div>
-                        <span class="username-hover">adhiphalder</span>
-                        <p> • 22 hr. ago</p>
-                    
-                    
-                    </div>
-                    
-                    <h3>Who are you? Without reference to your name, job, culture, hobbies, family and relationships? dhfvshfvshvfskfshfshf   </h3>
-                    <p class="post-para">Ok so I am 30 years old. Turned 30 back in March and I bought myself a PS5 after my 4 shit out finally after 12 years.
-    
-                        I was excited about all the big games but was pleasantly entertained with Astro Bot. So clever! My kids would watch me play before bed and they just loved it.
-                        
-                        Never thought a sequel would come out. Finally got to try the new one and I am BLOWN AWAY at how absolutely creative and visually appealing this game is. I felt like I was a kid playing an all time classic for the first time. It’s bringing me so much joy!
-                        
-                        Don’t have many gamers in my life. So I figured I would write this just to share how great I thought it is. Anyone else feel the same?</p>
-    
-    
+
+
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> User ID</th>
+                                <th>Member's Name</th>
+                                <th> DOJ</th>
+                                <th>To Posts</th>
+                                {{-- <th>Suspend Member</th> --}}
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <!-- <td>dfdf</td> -->
+                                <td>fsdfsf</td>
+                                <td>sdfsfs</td>
+                                <td>dfdsfd</td>
+                                {{-- <td><a href="view_posts.html">View Posts</a></td> --}}
+                                {{-- <td>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <div class="slider"></div>
+                                        <div class="slider-card">
+                                        <div class="slider-card-face slider-card-front"></div>
+                                        <div class="slider-card-face slider-card-back"></div>
+                                        </div>
+                                    </label>
+                                </td> --}}
+                                <td class="button-container">
+                                    <!-- <button class="edit">Edit</button>  -->
+
+                                    <button type="submit" class="delete">
+                                        <p class="button-container-p">Delete</p>
+                                        <span class="icon-wrapper">
+                                            <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+                                                    stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </svg>
+
+
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                    <!-- <a href="#">Show All</a> -->
                 </div>
 
-
             </main>
-
             <!------------------
             end main
             ------------------->
@@ -261,7 +267,7 @@
 
 
 
-            <script src="{{asset('js/admincontent.js')}}"></script>
+            <script src="{{asset('js/adminhome.js')}}"></script>
     </body>
 
 </html>
