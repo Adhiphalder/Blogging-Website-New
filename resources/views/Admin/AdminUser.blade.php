@@ -156,104 +156,105 @@
                         </div>
                     @else
 
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>User ID</th>
-                                    <th>Name</th>
-                                    <th>Contact No</th>
-                                    <th>Email</th>
-                                    <th>Join Date</th>
-                                    <th>Suspend Account</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {{-- <tr>
-                                    <td>dfdf</td>
-                                    <td>fsdfsf</td>
-                                    <td>sdfsfs</td>
-                                    <td>dfdsfd</td>
-                                    <td>sfsfsdf</td>
-                                    <td>
-                                        <div class="days">
-                                            Days :
-                                            <input type="number" id="quantity" name="quantity" min="0" max="365" step="1"
-                                                value="0">
-                                        </div>
-                                    </td>
-                                    <td class="button-container">
-
-                                        <button type="submit" class="delete">
-                                            <p class="button-container-p">Delete</p>
-                                            <span class="icon-wrapper">
-                                                <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
-                                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </svg>
-
-
-                                            </span>
-                                        </button>
-                                    </td>
-                                </tr> --}}
-                                @foreach($users as $user)
+                        <div class="recent-order-scroll" style="max-height: 512px">                        
+                            <table>
+                                <thead>
                                     <tr>
-                                        {{-- <td>bdsfhdfhb</td>
-                                        <td>bdsfhdfhb</td>
-                                        <td>bdsfhdfhb</td>
-                                        <td>bdsfhdfhb</td> --}}
-                                        
-
-
-                                        <td>{{ $user->user_id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->contact_no ?? 'N/A' }}</td> 
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->created_at->format('d-m-Y') }}</td>
-                                        {{-- <td>{{ $user->password }}</td> --}}
+                                        <th>User ID</th>
+                                        <th>Name</th>
+                                        <th>Contact No</th>
+                                        <th>Email</th>
+                                        <th>Join Date</th>
+                                        <th>Suspend Account</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    {{-- <tr>
+                                        <td>dfdf</td>
+                                        <td>fsdfsf</td>
+                                        <td>sdfsfs</td>
+                                        <td>dfdsfd</td>
+                                        <td>sfsfsdf</td>
                                         <td>
-                                        <label class="switch">
-                                            <input type="checkbox" onchange="confirmSuspendUser (this, {{ $user->user_id }})" {{ $user->suspend_account ? 'checked' : '' }}>
-                                            <div class="slider"></div>
-                                            <div class="slider-card">
-                                                <div class="slider-card-face slider-card-front"></div>
-                                                <div class="slider-card-face slider-card-back"></div>
+                                            <div class="days">
+                                                Days :
+                                                <input type="number" id="quantity" name="quantity" min="0" max="365" step="1"
+                                                    value="0">
                                             </div>
-                                        </label>
-
                                         </td>
                                         <td class="button-container">
-                                        <!-- <button class="edit">Edit</button>  -->
-                    
-                                        <form action="{{ route('admin.delete.user', $user->user_id) }}" method="POST" class="delete-form" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE') 
-                                            <button type="button" class="delete" onclick="confirmDelete(this, 'user')">
+    
+                                            <button type="submit" class="delete">
                                                 <p class="button-container-p">Delete</p>
                                                 <span class="icon-wrapper">
                                                     <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
-                                                            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
                                                     </svg>
+    
+    
                                                 </span>
                                             </button>
-                                        </form>
-
                                         </td>
-                                    </tr>
-                                @endforeach
-
-
-                            </tbody>
-                        </table>
+                                    </tr> --}}
+                                    @foreach($users as $user)
+                                        <tr>
+                                            {{-- <td>bdsfhdfhb</td>
+                                            <td>bdsfhdfhb</td>
+                                            <td>bdsfhdfhb</td>
+                                            <td>bdsfhdfhb</td> --}}
+                                            
+    
+    
+                                            <td>{{ $user->user_id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->contact_no ?? 'N/A' }}</td> 
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->created_at->format('d-m-Y') }}</td>
+                                            {{-- <td>{{ $user->password }}</td> --}}
+                                            <td>
+                                            <label class="switch">
+                                                <input type="checkbox" onchange="confirmSuspendUser (this, {{ $user->user_id }})" {{ $user->suspend_account ? 'checked' : '' }}>
+                                                <div class="slider"></div>
+                                                <div class="slider-card">
+                                                    <div class="slider-card-face slider-card-front"></div>
+                                                    <div class="slider-card-face slider-card-back"></div>
+                                                </div>
+                                            </label>
+    
+                                            </td>
+                                            <td class="button-container">
+                                            <!-- <button class="edit">Edit</button>  -->
+                        
+                                            <form action="{{ route('admin.delete.user', $user->user_id) }}" method="POST" class="delete-form" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE') 
+                                                <button type="button" class="delete" onclick="confirmDelete(this, 'user')">
+                                                    <p class="button-container-p">Delete</p>
+                                                    <span class="icon-wrapper">
+                                                        <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+                                                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </form>
+    
+                                            </td>
+                                        </tr>
+                                    @endforeach
+    
+    
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
 
                     <!-- <a href="#">Show All</a> -->

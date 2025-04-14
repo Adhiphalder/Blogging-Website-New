@@ -154,96 +154,97 @@
 
                     @else
 
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Post ID</th>
-                                    <th>User ID</th>
-                                    <th>Community ID</th>
-                                    <th>Post</th>
-                                    <!-- <th>Caption</th>
-                                    <th>Description</th> -->
-                                    <th>Total Comments</th>
-                                    <th>Date & Time</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($posts as $post)
+                        <div class="recent-order-scroll" style="max-height: 512px">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>{{ $post->post_id }}</td>
-                                        <td>{{ $post->user_id }}</td>
-                                        {{-- <td>{{ $post->community_id }}</td> --}}
-                                        <td>
-                                            @if($post->community)
-                                                {{ $post->community->community_name }} 
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
-
-                                        <div id="imagePopup" class="popup">
-                                            <span class="close">&times;</span>
-                                            <img class="popup-content" id="popupImg">
-                                        </div>             
-                                        {{-- <td> 
-                                            <img src="/Images/4.jpeg" alt="Post Image" onclick="openPopup(this)">
-                                            <a href="admin_content.html">View Posts</a>
-                                        </td> --}}
-                                        <td>
-                                            @if($post->post_img)
-                                                <img src="{{ asset('storage/' . $post->post_img) }}" alt="Post Image" onclick="openPopup(this)">
-                                            @endif
-                                            {{-- <a href="{{ route('admin.content') }}">View Posts</a> --}}
-                                            <a href="{{ route('admin.content', ['post_id' => $post->post_id]) }}">View Post</a>
-                                        </td>
-                                        
-                                        <td>
-                                            {{ $post->comments_count }}
-                                        </td>
-                                        <td>{{ $post->created_at->format('d-m-Y') }} at {{ $post->created_at->format('H:i') }}</td>
-                                        <!-- <td>dhchjdschsg</td>
-                                        <td>dhchjdschsg</td> -->
-                                        <td class="button-container">
-                                            <!-- <button class="edit">Edit</button>  -->
-
-                                            {{-- <button type="submit" class="delete">
-                                                <p class="button-container-p">Delete</p>
-                                                <span class="icon-wrapper">
-                                                    <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
-                                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-
-
-                                                </span>
-                                            </button> --}}
-                                            <form action="{{ route('admin.delete.post', $post->post_id) }}" method="POST" class="delete-form" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="delete" onclick="confirmDelete(this)">
+                                        <th>Post ID</th>
+                                        <th>User ID</th>
+                                        <th>Community ID</th>
+                                        <th>Post</th>
+                                        <!-- <th>Caption</th>
+                                        <th>Description</th> -->
+                                        <th>Total Comments</th>
+                                        <th>Date & Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    @foreach($posts as $post)
+                                        <tr>
+                                            <td>{{ $post->post_id }}</td>
+                                            <td>{{ $post->user_id }}</td>
+                                            {{-- <td>{{ $post->community_id }}</td> --}}
+                                            <td>
+                                                @if($post->community)
+                                                    {{ $post->community->community_name }} 
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+    
+                                            <div id="imagePopup" class="popup">
+                                                <span class="close">&times;</span>
+                                                <img class="popup-content" id="popupImg">
+                                            </div>             
+                                            {{-- <td> 
+                                                <img src="/Images/4.jpeg" alt="Post Image" onclick="openPopup(this)">
+                                                <a href="admin_content.html">View Posts</a>
+                                            </td> --}}
+                                            <td>
+                                                @if($post->post_img)
+                                                    <img src="{{ asset('storage/' . $post->post_img) }}" alt="Post Image" onclick="openPopup(this)">
+                                                @endif
+                                                {{-- <a href="{{ route('admin.content') }}">View Posts</a> --}}
+                                                <a href="{{ route('admin.content', ['post_id' => $post->post_id]) }}">View Post</a>
+                                            </td>
+                                            
+                                            <td>
+                                                {{ $post->comments_count }}
+                                            </td>
+                                            <td>{{ $post->created_at->format('d-m-Y') }} at {{ $post->created_at->format('H:i') }}</td>
+                                            <!-- <td>dhchjdschsg</td>
+                                            <td>dhchjdschsg</td> -->
+                                            <td class="button-container">
+                                                <!-- <button class="edit">Edit</button>  -->
+    
+                                                {{-- <button type="submit" class="delete">
                                                     <p class="button-container-p">Delete</p>
                                                     <span class="icon-wrapper">
-                                                        <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+                                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
                                                         </svg>
+    
+    
                                                     </span>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                                
-
-
-                            </tbody>
-                        </table>
+                                                </button> --}}
+                                                <form action="{{ route('admin.delete.post', $post->post_id) }}" method="POST" class="delete-form" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="delete" onclick="confirmDelete(this)">
+                                                        <p class="button-container-p">Delete</p>
+                                                        <span class="icon-wrapper">
+                                                            <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+    
+                                    
+    
+    
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
 
                     <!-- <a href="#">Show All</a> -->

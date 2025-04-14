@@ -156,63 +156,65 @@
                         
                     @else
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Community ID</th>
-                                    <th> User ID</th>
-                                    <th>Community Name</th>
-                                    <th> Total Members</th>
-                                    <th>Member List</th>
-                                    <th>Suspend Community</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($communities as $community)
+                        <div class="recent-order-scroll" style="max-height: 512px">                        
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>{{ $community->community_id }}</td>
-                                        <td>{{ $community->user_id }}</td>
-                                        <td>{{ $community->community_name }}</td>
-                                        <td>{{ $community->community_total_member }}</td>
-                                        {{-- <td><a href="view_comminities.html">View Members</a></td> --}}
-                                        <td><a href="{{ route('admin.member', ['community_name' => $community->community_name]) }}">View Members</a></td>
-                                        <td>
-                                            <label class="switch">
-                                                <input type="checkbox" onchange="confirmSuspendCommunity(this, '{{ $community->community_id }}')" {{ $community->community_suspend ? 'checked' : '' }}>
-                                                <div class="slider"></div>
-                                                <div class="slider-card">
-                                                    <div class="slider-card-face slider-card-front"></div>
-                                                    <div class="slider-card-face slider-card-back"></div>
-                                                </div>
-                                            </label>
-                                        </td>
-                                        <td class="button-container">
-
-                                            <form id="deleteForm-{{ $community->community_id }}" action="{{ route('admin.deleteCommunity', $community->community_id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="delete" onclick="confirmDelete(this, 'community'); return false;">
-                                                    <p class="button-container-p">Delete</p>
-                                                    <span class="icon-wrapper">
-                                                        <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
-                                                                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </form>
-                                            
-                                        </td>
+                                        <th>Community ID</th>
+                                        <th> User ID</th>
+                                        <th>Community Name</th>
+                                        <th> Total Members</th>
+                                        <th>Member List</th>
+                                        <th>Suspend Community</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-
-
-                            </tbody>
-                        </table>
+                                </thead>
+    
+                                <tbody>
+                                    @foreach($communities as $community)
+                                        <tr>
+                                            <td>{{ $community->community_id }}</td>
+                                            <td>{{ $community->user_id }}</td>
+                                            <td>{{ $community->community_name }}</td>
+                                            <td>{{ $community->community_total_member }}</td>
+                                            {{-- <td><a href="view_comminities.html">View Members</a></td> --}}
+                                            <td><a href="{{ route('admin.member', ['community_name' => $community->community_name]) }}">View Members</a></td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" onchange="confirmSuspendCommunity(this, '{{ $community->community_id }}')" {{ $community->community_suspend ? 'checked' : '' }}>
+                                                    <div class="slider"></div>
+                                                    <div class="slider-card">
+                                                        <div class="slider-card-face slider-card-front"></div>
+                                                        <div class="slider-card-face slider-card-back"></div>
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td class="button-container">
+    
+                                                <form id="deleteForm-{{ $community->community_id }}" action="{{ route('admin.deleteCommunity', $community->community_id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="delete" onclick="confirmDelete(this, 'community'); return false;">
+                                                        <p class="button-container-p">Delete</p>
+                                                        <span class="icon-wrapper">
+                                                            <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+                                                                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                                
+                                            </td>
+                                        </tr>
+                                    @endforeach
+    
+    
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
 
                     <!-- <a href="#">Show All</a> -->

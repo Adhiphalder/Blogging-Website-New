@@ -391,7 +391,7 @@ main table tbody tr:last-child td{
 }
 
 .recent-order-scroll{
-  max-height: 237px;
+  max-height: 246px;
   overflow-y: auto;
   border-radius: var(--card-border-radius);
 }

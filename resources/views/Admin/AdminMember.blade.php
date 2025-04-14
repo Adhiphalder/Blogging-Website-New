@@ -202,68 +202,69 @@
                         <h2>{{ $community->community_name }}</h2>
 
 
-
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th> User ID</th>
-                                    <th>Member's Name</th>
-                                    <th> DOJ</th>
-                                    <th>Total Posts</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach($memberData as $data)
+                        <div class="recent-order-scroll" style="max-height: 512px">                        
+                            <table>
+                                <thead>
                                     <tr>
-                                        {{-- <td>fsdfsf</td>
-                                        <td>sdfsfs</td>
-                                        <td>dfdsfd</td>
-                                        <td>18</td> --}}
-
-                                        <td>{{ $data['user_id'] }}</td>
-                                        <td>{{ $data['member_name'] }}</td>
-                                        <td>{{ $data['doj'] }}</td>
-                                        <td>{{ $data['total_posts'] }}</td>
-                                        <td class="button-container">
-
-                                            {{-- <button type="submit" class="delete">
-                                                <p class="button-container-p">Delete</p>
-                                                <span class="icon-wrapper">
-                                                    <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
-                                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round"></path>
-                                                    </svg>
-
-
-                                                </span>
-                                            </button> --}}
-
-                                            <form id="deleteForm-{{ $data['user_id'] }}" action="{{ route('admin.deleteMember', $data['user_id']) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="delete" onclick="confirmDelete(this, 'member'); return false;">
+                                        <th> User ID</th>
+                                        <th>Member's Name</th>
+                                        <th> DOJ</th>
+                                        <th>Total Posts</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    @foreach($memberData as $data)
+                                        <tr>
+                                            {{-- <td>fsdfsf</td>
+                                            <td>sdfsfs</td>
+                                            <td>dfdsfd</td>
+                                            <td>18</td> --}}
+    
+                                            <td>{{ $data['user_id'] }}</td>
+                                            <td>{{ $data['member_name'] }}</td>
+                                            <td>{{ $data['doj'] }}</td>
+                                            <td>{{ $data['total_posts'] }}</td>
+                                            <td class="button-container">
+    
+                                                {{-- <button type="submit" class="delete">
                                                     <p class="button-container-p">Delete</p>
                                                     <span class="icon-wrapper">
-                                                        <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16"
+                                                                stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                                stroke-linejoin="round"></path>
                                                         </svg>
+    
+    
                                                     </span>
-                                                </button>
-                                            </form>                                        
+                                                </button> --}}
+    
+                                                <form id="deleteForm-{{ $data['user_id'] }}" action="{{ route('admin.deleteMember', $data['user_id']) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="delete" onclick="confirmDelete(this, 'member'); return false;">
+                                                        <p class="button-container-p">Delete</p>
+                                                        <span class="icon-wrapper">
+                                                            <svg class="icon" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </form>                                        
+    
+                                            </td>
+                                        </tr>
+                                    @endforeach
+    
+    
+                                </tbody>
+                            </table>
+                        </div>
 
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-
-                            </tbody>
-                        </table>
 
                         <!-- <a href="#">Show All</a> -->
                     </div>
