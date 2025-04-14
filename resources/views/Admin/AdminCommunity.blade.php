@@ -82,9 +82,10 @@
             <main>
                 <h1>Communities</h1>
 
-
+                
                 <!-- end insights -->
                 <div class="recent_order">
+                    <h2>Total Communities</h2>
 
                     @if($communities->isEmpty())
                         <div class="main_wrapper">
@@ -152,9 +153,8 @@
                         </div>
                         </div>
 
+                        
                     @else
-
-                        <h2>Total Communities</h2>
 
                         <table>
                             <thead>

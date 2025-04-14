@@ -732,7 +732,7 @@
                     <form id="delete-community-form" action="{{ route('community.delete', ['community_name' => $community->community_name]) }}" method="POST" onsubmit="return confirmDeleteCommunity();">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-button">
+                        <button type="submit" class="delete-button" style="position: absolute">
                             <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
