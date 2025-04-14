@@ -74,8 +74,6 @@ Route::post('/suspend-community/{id}', [AdminController::class, 'suspendCommunit
 
 Route::delete('/admin/community/delete/{id}', [AdminController::class, 'deleteCommunity'])->name('admin.deleteCommunity');
 
-// Route::get('/adminmember', [AdminController::class, 'adminmember']);
-
 Route::get('/adminmember/{community_name}', [AdminController::class, 'adminmember'])->name('admin.member');
 
 Route::delete('/admin/delete-member/{userId}', [AdminController::class, 'deleteMember'])->name('admin.deleteMember');
@@ -115,6 +113,8 @@ Route::get('/explore', [CommunityController::class, 'explore']);
 Route::get('/editcommunity/{community_name}', [CommunityController::class, 'editCommunity'])->name('edit.community');
 
 Route::post('/updatecommunity/{community_name}', [CommunityController::class, 'updateCommunity'])->name('update.community');
+
+Route::delete('/community/{community_name}/delete', [CommunityController::class, 'deleteCommunity'])->name('community.delete');
 
 Route::post('/community/join/{community_name}', [CommunityController::class, 'joinCommunity'])->name('join.community');
 

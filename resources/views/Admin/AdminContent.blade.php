@@ -153,23 +153,23 @@
                     </div> --}}
 
                     @if(!empty($post->post_img))
-                    <a href="{{ route('comment', ['post_id' => $post->post_id]) }}">
-                        <div class="post-img" style="position: relative; display: inline-block; overflow: hidden;">
-                            <div style="
-                                position: absolute;
-                                top: -10%;
-                                left: -10%;
-                                height: 120%;
-                                width: 120%;
-                                background: url('{{ asset("storage/" . $post->post_img) }}') no-repeat center;
-                                background-size: cover;
-                                filter: blur(20px);
-                                z-index: 1;
-                            "></div>
-                            <img src="{{ asset('storage/' . $post->post_img) }}" alt="Post Image" style="position: relative; z-index: 2;">
-                        </div>
-                    </a>
-                @endif
+                        <a href="{{ route('comment', ['post_id' => $post->post_id]) }}">
+                            <div class="post-img" style="position: relative; display: inline-block; overflow: hidden;">
+                                <div style="
+                                    position: absolute;
+                                    top: -10%;
+                                    left: -10%;
+                                    height: 120%;
+                                    width: 120%;
+                                    background: url('{{ asset("storage/" . $post->post_img) }}') no-repeat center;
+                                    background-size: cover;
+                                    filter: blur(20px);
+                                    z-index: 1;
+                                "></div>
+                                <img src="{{ asset('storage/' . $post->post_img) }}" alt="Post Image" style="position: relative; z-index: 2;">
+                            </div>
+                        </a>
+                    @endif
     
                 </div> 
 
@@ -223,7 +223,6 @@
                     @endforeach
                 @endif            
 
-
             </main>
 
             <!------------------
@@ -251,10 +250,10 @@
                             <p>Admin</p>
                             <small class="text-muted"></small>
                         </div>
-                        <div class="profile-photo">
-                            <img src="/Images/profile-1.jpg" alt="" />
-                        </div>
                         {{-- <div class="profile-photo">
+                            <img src="/Images/profile-1.jpg" alt="" />
+                        </div> --}}
+                        <div class="profile-photo">
                             <a href="/adminprofile">
                               @if($admin->profile_pic)
                                   <img src="{{ asset('storage/' . $admin->profile_pic) }}" alt="Admin Profile Picture" />
@@ -262,7 +261,7 @@
                                   <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Default Profile Picture" />
                               @endif
                             </a> 
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
 

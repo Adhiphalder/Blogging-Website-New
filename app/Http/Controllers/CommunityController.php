@@ -175,6 +175,24 @@ class CommunityController extends Controller
                         ->with('success', 'Community updated successfully!');
     }
 
+    public function deleteCommunity($community_name)
+    {
+        $community = Communities::where('community_name', $community_name)->first();
+
+        if (!$community) {
+            return redirect()->route('home')->with('error', 'Community not found.');
+        }
+
+        if (Auth::id() !== $community->user_id) {
+            return redirect()->route('home')->with('error', 'You are not authorized to delete this community.');
+        }
+
+        $community->delete();
+
+        return redirect()->route('home')->with('success', 'Community deleted successfully.');
+    }
+
+
     public function joinCommunity(Request $request, $community_name)
     {
         $userId = Auth::id();

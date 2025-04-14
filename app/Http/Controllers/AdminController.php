@@ -52,8 +52,9 @@ class AdminController extends Controller
         $totalPostsLast24Hours = Post::where('created_at', '>=', now()->subDay())->count();
 
         $users = User::orderBy('created_at', 'desc')->get();
+        $admin = session('admin');
     
-        return view('Admin.AdminHome', compact('totalUsersLast24Hours', 'totalPostsLast24Hours', 'users'));
+        return view('Admin.AdminHome', compact('totalUsersLast24Hours', 'totalPostsLast24Hours', 'users',  'admin'));
     }
 
     public function suspendUser (Request $request, $userId)
@@ -103,8 +104,9 @@ class AdminController extends Controller
         }
     
         $users = User::all(); 
+        $admin = session('admin');
     
-        return view('Admin.AdminUser ', compact('users'));
+        return view('Admin.AdminUser ', compact('users',  'admin'));
     }
 
     public function adminpost()
@@ -116,8 +118,9 @@ class AdminController extends Controller
         }
     
         $posts = Post::withCount('comments')->get();
+        $admin = session('admin');
     
-        return view('Admin.AdminPost', compact('posts'));
+        return view('Admin.AdminPost', compact('posts', 'admin'));
     }
 
     public function deletePost($post_id)
@@ -136,8 +139,15 @@ class AdminController extends Controller
     {
         // return view('Admin.AdminCommunity');
 
+
+        if (!session()->has('admin')) {
+            return redirect()->route('admin.login')->with('error', 'Please log in first.');
+        }
+    
+        $admin = session('admin'); 
         $communities = Communities::all();
-        return view('Admin.AdminCommunity', compact('communities'));
+    
+        return view('Admin.AdminCommunity', compact('communities', 'admin')); 
     }
 
     public function suspendCommunity(Request $request, $id) 
@@ -177,6 +187,7 @@ class AdminController extends Controller
         // return view('Admin.AdminMember');
 
         $community = Communities::where('community_name', $community_name)->first();
+        $admin = session('admin');
 
         if (!$community) {
             return redirect()->back()->with('error', 'Community not found.');
@@ -204,7 +215,7 @@ class AdminController extends Controller
             ];
         }
     
-        return view('Admin.AdminMember', compact('memberData', 'community'));
+        return view('Admin.AdminMember', compact('memberData', 'community', 'admin'));
 
     }
 
@@ -235,6 +246,7 @@ class AdminController extends Controller
         }
     
         $post = null;
+        $admin = session('admin');
     
         if ($post_id) {
             $post = Post::with(['user', 'community', 'comments.user'])->find($post_id);
@@ -244,7 +256,7 @@ class AdminController extends Controller
             }
         }
     
-        return view('Admin.AdminContent', compact('post'));
+        return view('Admin.AdminContent', compact('post', 'admin'));
     }    
 
     public function viewpost()
