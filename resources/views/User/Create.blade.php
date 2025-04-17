@@ -70,6 +70,67 @@
             </script>
         </div>
 
+        @if($errors->any() || session('success'))
+            <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        @php
+                            if ($error === 'The selected entity field is required.') {
+                                $error = 'Select an option first';
+                            }
+                        @endphp
+                        <div style="
+                            min-width: 250px;
+                            margin-top: 10px;
+                            padding: 15px 20px;
+                            border-radius: 8px;
+                            color: white;
+                            background-color: #dc3545;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                            opacity: 0.95;
+                            font-weight: 500;
+                            animation: fadeOut 5s forwards;
+                            text-align: center;
+                        ">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
+
+                @if(session('success'))
+                    <div style="
+                        min-width: 250px;
+                        margin-top: 10px;
+                        padding: 15px 20px;
+                        border-radius: 8px;
+                        color: white;
+                        background-color: #28a745;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                        opacity: 0.95;
+                        font-weight: 500;
+                        animation: fadeOut 5s forwards;
+                        text-align: center;
+                    ">
+                        {{ session('success') }}
+                    </div>
+                @endif
+            </div>
+
+            <style>
+                @keyframes fadeOut {
+                    0%   { opacity: 1; transform: translateY(0); }
+                    80%  { opacity: 1; transform: translateY(0); }
+                    100% { opacity: 0; transform: translateY(-20px); }
+                }
+            </style>
+
+            <script>
+                setTimeout(() => {
+                    document.querySelectorAll('[style*="animation: fadeOut"]').forEach(el => el.remove());
+                }, 6000);
+            </script>
+        @endif
+
         <header>
             <a href="/" class="logo"><img class="logo-img" src="/Pictures/inkspire.png"></a>
             <input type="text" placeholder="Search" id="searchInput">
@@ -441,7 +502,7 @@
 
 
 
-                        @php
+                        {{-- @php
                             $userId = session('user_id');
                             $user = \App\Models\User::find($userId);
 
@@ -475,6 +536,27 @@
 
                             $sortedCommunities = $allCommunities->sortByDesc('created_at');
                             $defaultProfilePic = asset('https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                        @endphp --}}
+
+                        @php
+                            $userId = session('user_id');
+                            $user = \App\Models\User::find($userId);
+
+                            $createdCommunities = \App\Models\Communities::where('user_id', $userId)
+                                ->where('community_suspend', 0) 
+                                ->get();
+
+                            $joinedCommunities = \App\Models\Communities::join('join', 'join.community_id', '=', 'communities.community_id')
+                                ->where('join.user_id', $userId)
+                                ->where('communities.community_suspend', 0) 
+                                ->select('communities.*', 'join.created_at as joined_at') 
+                                ->get();
+
+                            $allCommunities = $createdCommunities->merge($joinedCommunities);
+
+                            $sortedCommunities = $allCommunities->sortByDesc('created_at');
+
+                            $defaultProfilePic = asset('https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
                         @endphp
                         
                         <div class="create-post-community-community-bar-community">
@@ -498,7 +580,7 @@
                                 </span>
                             </p>
                         
-                            <h3>Your Community</h3>
+                            {{-- <h3>Your Community</h3>
 
                             @if ($sortedCommunities->isNotEmpty())
                                 @foreach ($sortedCommunities as $community)
@@ -521,8 +603,35 @@
                                     >
                                     <span style="font-size: 11px; color: rgb(198, 198, 198);">You have No Community Yet</span>
                                 </div>
-                            @endif
+                            @endif  --}}
 
+
+                            <h3>Your Community</h3>
+
+                            @if ($sortedCommunities->isNotEmpty())
+                                @foreach ($sortedCommunities as $community)
+                                    @if ($community->community_suspend == 0)
+                                        <div class="profile-img2" onclick="selectCommunity('r/{{ $community->community_name }}')">
+                                            <img 
+                                                class="profile-img2-img" 
+                                                src="{{ !empty($community->community_pic) ? asset('storage/' . $community->community_pic) : $defaultProfilePic }}" 
+                                                alt="{{ $community->community_name }}"
+                                            >
+                                            <span>r/{{ $community->community_name }}</span>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @else
+                                <div class="profile-img3">
+                                    <img 
+                                        class="profile-img2-img" 
+                                        style="width: 33px; height:auto; border:none; box-shadow:none;" 
+                                        src="https://www.redditstatic.com/shreddit/assets/hmm-snoo.png" 
+                                        alt=""
+                                    >
+                                    <span style="font-size: 11px; color: rgb(198, 198, 198);">You have No Community Yet</span>
+                                </div>
+                            @endif 
 
                         </div>
 
@@ -531,13 +640,13 @@
                     
                 </div>
 
-                @if($errors->any())
+                {{-- @if($errors->any())
                     <ul class="error">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
-                @endif
+                @endif --}}
 
                 <div class="create-post-form">
 

@@ -41,7 +41,7 @@
                 </form> --}}
 
 
-                @if(session('success'))
+                {{-- @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
 
@@ -53,7 +53,63 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                    @endif --}}
+
+                    @if($errors->any() || session('success'))
+                    <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <div style="
+                                    min-width: 250px;
+                                    margin-top: 10px;
+                                    padding: 15px 20px;
+                                    border-radius: 8px;
+                                    color: white;
+                                    background-color: #dc3545;
+                                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                    opacity: 0.95;
+                                    font-weight: 500;
+                                    animation: fadeOut 5s forwards;
+                                    text-align: center;
+                                ">
+                                    {{ $error }}
+                                </div>
+                            @endforeach
+                        @endif
+
+                        @if(session('success'))
+                            <div style="
+                                min-width: 250px;
+                                margin-top: 10px;
+                                padding: 15px 20px;
+                                border-radius: 8px;
+                                color: white;
+                                background-color: #28a745;
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                opacity: 0.95;
+                                font-weight: 500;
+                                animation: fadeOut 5s forwards;
+                                text-align: center;
+                            ">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                    </div>
+
+                    <style>
+                        @keyframes fadeOut {
+                            0%   { opacity: 1; transform: translateY(0); }
+                            80%  { opacity: 1; transform: translateY(0); }
+                            100% { opacity: 0; transform: translateY(-20px); }
+                        }
+                    </style>
+
+                    <script>
+                        setTimeout(() => {
+                            document.querySelectorAll('[style*="animation: fadeOut"]').forEach(el => el.remove());
+                        }, 6000);
+                    </script>
+                @endif
 
                 <form action="{{ route('admin.login') }}" method="post">
                     @csrf

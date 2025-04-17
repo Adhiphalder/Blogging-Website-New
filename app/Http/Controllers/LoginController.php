@@ -18,6 +18,25 @@ class LoginController extends Controller
 
     public function signUp(Request $request)
     {
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required',
+        // ]);
+    
+        // $user = new User();
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->password = bcrypt($request->password);
+    
+        // $user->user_name = strtolower(str_replace(' ', '_', $request->name)) . rand(100, 999);
+    
+        // $user->save();
+    
+        // $request->session()->put('user', $user);
+    
+        // return redirect('/')->with('success', 'Sign up successful!, now Login with your credentials');
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -28,14 +47,12 @@ class LoginController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-    
         $user->user_name = strtolower(str_replace(' ', '_', $request->name)) . rand(100, 999);
-    
         $user->save();
     
         $request->session()->put('user', $user);
     
-        return redirect('/')->with('success', 'Sign up successful!');
+        return redirect()->route('register')->with('success', 'Sign up successful! Now login with your credentials.');
     }
 
     public function login(Request $request)

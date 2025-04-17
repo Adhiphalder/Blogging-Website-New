@@ -79,6 +79,62 @@
          - SECTION NAVBAR
         -->
 
+        @if($errors->any() || session('success'))
+            <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+                @if($errors->any())
+                    @foreach($errors->all() as $error)
+                        <div style="
+                            min-width: 250px;
+                            margin-top: 10px;
+                            padding: 15px 20px;
+                            border-radius: 8px;
+                            color: white;
+                            background-color: #dc3545;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                            opacity: 0.95;
+                            font-weight: 500;
+                            animation: fadeOut 5s forwards;
+                            text-align: center;
+                        ">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
+
+                @if(session('success'))
+                    <div style="
+                        min-width: 250px;
+                        margin-top: 10px;
+                        padding: 15px 20px;
+                        border-radius: 8px;
+                        color: white;
+                        background-color: #28a745;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                        opacity: 0.95;
+                        font-weight: 500;
+                        animation: fadeOut 5s forwards;
+                        text-align: center;
+                    ">
+                        {{ session('success') }}
+                    </div>
+                @endif
+            </div>
+
+            <style>
+                @keyframes fadeOut {
+                    0%   { opacity: 1; transform: translateY(0); }
+                    80%  { opacity: 1; transform: translateY(0); }
+                    100% { opacity: 0; transform: translateY(-20px); }
+                }
+            </style>
+
+            <script>
+                setTimeout(() => {
+                    document.querySelectorAll('[style*="animation: fadeOut"]').forEach(el => el.remove());
+                }, 6000);
+            </script>
+        @endif
+
         <header>
             <a href="/" class="logo"><img class="logo-img" src="/Pictures/inkspire.png"></a>
             <input type="text" placeholder="Search" id="searchInput">
@@ -232,7 +288,7 @@
          - SECTION SIDEBAR
         -->
 
-        <nav  class="sidebar" id="sidebar">
+        {{-- <nav  class="sidebar" id="sidebar">
 
             <div class="sidebar__container">
    
@@ -325,11 +381,91 @@
                          <span>Theme</span>
                       </i>
                    </button>
+
+                   <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="sidebar__link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                         <span>Log Out</span>
+                      </button>
+                  </form>
+
+                </div>
+            </div>
+
+        </nav> --}}
+
+        <nav  class="sidebar" id="sidebar">
+
+            <div class="sidebar__container">
+   
+                <div class="sidebar__content">
+                    <div>
+                       <h3 class="sidebar__title">MANAGE</h3>
+     
+                       <div class="sidebar__list">
+                            <a href="#" class="sidebar__link active-link">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Home</span>
+                            </a>
+                          
+                            <a href="#" class="sidebar__link">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                                <span>Popular</span>
+                            </a>
+     
+                            <a href="/explore" class="sidebar__link">
+                                <i class="fa-solid fa-table"></i>
+                                <span>Explore</span>
+                            </a>
+                       </div>
+                    </div>
+  
+                    <div>
+                      <h3 class="sidebar__title">YOUR COMMUNITIES</h3>
     
-                   {{-- <button class="sidebar__link">
-                     <i class="fa-solid fa-right-from-bracket"></i>
-                      <span>Log Out</span>
-                   </button> --}}
+                      <div class="sidebar__list">
+                         <a href="/createcommunity" class="sidebar__link">
+                             <i class="fa-solid fa-plus"></i>
+                             <span>Create Community </span>
+                         </a>
+                         @foreach($createdCommunities as $navCommunity)
+                            <a href="{{ route('show.mycommunity', $navCommunity->community_name) }}" class="sidebar__link">
+                                <div class="profile-img1">
+                                    <img src="{{ $navCommunity->community_pic ? asset('storage/' . $navCommunity->community_pic) : 'https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}" alt="Community Picture">
+                                </div>
+                                <span>{{ $navCommunity->community_name }}</span>
+                            </a>
+                        @endforeach
+  
+                           
+  
+                      </div>
+                   </div>
+
+                    @if($joinedCommunities->isNotEmpty())
+                        <div>
+                            <h3 class="sidebar__title">OTHER COMMUNITIES</h3>
+                            <div class="sidebar__list">
+                                @foreach($joinedCommunities as $joinedCommunity)
+                                    <a href="{{ route('show.community', $joinedCommunity->community_name) }}" class="sidebar__link">
+                                        <div class="profile-img1">
+                                            <img src="{{ $joinedCommunity->community_pic ? asset('storage/' . $joinedCommunity->community_pic) : 'https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }}" alt="Community Picture">
+                                        </div>
+                                        <span>{{ $joinedCommunity->community_name }}</span>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                 </div>
+    
+                <div class="sidebar__actions">
+                   <button>
+                      <i class="ri-moon-clear-fill sidebar__link sidebar__theme" id="theme-button">
+                         <span>Theme</span>
+                      </i>
+                   </button>
 
                    <form action="{{ route('logout') }}" method="POST">
                     @csrf
@@ -343,119 +479,6 @@
             </div>
 
         </nav>
-
-        {{-- <nav class="sidebar" id="sidebar">
-            <div class="sidebar__container">
-
-                <div class="sidebar__content">
-                    <div>
-                        <h3 class="sidebar__title">MANAGE</h3>
-
-                        <div class="sidebar__list">
-                        <a href="#" class="sidebar__link active-link">
-                            <i class="fa-solid fa-house"></i>
-                            <span>Home</span>
-                        </a>
-                        
-                        <a href="#" class="sidebar__link">
-                            <i class="fa-solid fa-arrow-trend-up"></i>
-                            <span>Popular</span>
-                        </a>
-
-                        <a href="/explore" class="sidebar__link">
-                            <i class="fa-solid fa-table"></i>
-                            <span>Explore</span>
-                        </a>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="sidebar__title">YOUR COMMUNITIES</h3>
-
-                        <div class="sidebar__list">
-                            <a href="/createcommunity" class="sidebar__link">
-                                <i class="fa-solid fa-plus"></i>
-                                <span>Create Community </span>
-                            </a>
-
-
-
-                            @php
-                                $userId = session('user_id');
-
-                                $createdCommunities = \App\Models\Communities::where('user_id', $userId)
-                                    ->where('community_suspend', 0) 
-                                    ->get();
-
-                                $joinedCommunities = \DB::table('join')
-                                    ->join('communities', 'join.community_id', '=', 'communities.community_id')
-                                    ->where('join.user_id', $userId)
-                                    ->where('communities.community_suspend', 0) 
-                                    ->select('communities.community_name', 'communities.community_pic', 'join.created_at as joined_at')
-                                    ->get();
-                            @endphp
-
-
-                            @if ($createdCommunities->isNotEmpty())
-                                @foreach ($createdCommunities as $community)
-                                    <a href="{{ route('show.mycommunity', ['community_name' => $community->community_name]) }}" class="sidebar__link">
-                                        <div class="profile-img1">
-                                            @if (!empty($community->community_pic))
-                                                <img src="{{ asset('storage/' . $community->community_pic) }}" alt="{{ $community->community_name }}">
-                                            @else
-                                                <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Default Community">
-                                            @endif
-                                        </div>
-                                        <span>{{ $community->community_name }}</span>
-                                    </a>
-                                @endforeach
-                            @endif
-                            
-                        </div>
-                    </div>
-
-
-
-                    @if ($joinedCommunities->isNotEmpty())
-                        <div>
-                            <h3 class="sidebar__title">OTHER COMMUNITIES</h3>
-                            <div class="sidebar__list">
-                                @foreach ($joinedCommunities as $community)
-                                    <a href="{{ route('show.community', ['community_name' => $community->community_name]) }}" class="sidebar__link">
-                                        <div class="profile-img1">
-                                            @if (!empty($community->community_pic))
-                                                <img src="{{ asset('storage/' . $community->community_pic) }}" alt="{{ $community->community_name }}">
-                                            @else
-                                                <img src="https://plus.unsplash.com/premium_photo-1701090939615-1794bbac5c06?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Default Community">
-                                            @endif
-                                        </div>
-                                        <span>{{ $community->community_name }}</span>
-                                    </a>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endif
-
-                </div>
-
-                <div class="sidebar__actions">
-                    <button>
-                        <i class="ri-moon-clear-fill sidebar__link sidebar__theme" id="theme-button">
-                        <span>Theme</span>
-                        </i>
-                    </button>
-
-                    <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="sidebar__link">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                            <span>Log Out</span>
-                        </button>
-                    </form>
-
-                </div>
-            </div>
-        </nav> --}}
 
 
          

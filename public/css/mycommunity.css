@@ -1524,7 +1524,7 @@ transition: all 0.3s ease;
 .not-found {
   position: relative;
   left: 217px;
-  top: 16px;
+  /* top: 16px; */
   display: flex;
   flex-direction: column; 
   align-items: center; 

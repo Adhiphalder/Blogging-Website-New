@@ -102,7 +102,6 @@ class UserController extends Controller
             return redirect()->back()->withInput()->with('error', 'Please select a valid community or your profile.');
         }
     
-        // Create the post
         $post = Post::create([
             'post_caption' => $request->post_caption,
             'post_desc' => $request->post_desc,
@@ -457,10 +456,6 @@ class UserController extends Controller
         return response()->json(['success' => false]);
 
 
-    }
-
-    public function userviewpost(){
-        return view('User.UserViewPost');
     }
     
 }

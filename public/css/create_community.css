@@ -1707,6 +1707,7 @@ small{
   /* align-items: center; */
   position: relative;
   top: 12px;
+  margin-bottom: 6rem;
   /* left: 10rem; */
   gap: 16px;
   flex-direction: column;
@@ -1755,7 +1756,7 @@ small{
   position: absolute;
   z-index: 2;
   top: 41rem;
-  left: 23rem;
+  left: 23.5rem;
   width: 45px;
   height: 45px;
   border-radius: 50%;
