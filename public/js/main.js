@@ -142,17 +142,39 @@ function copyCurrentLink() {
 // USER ICON DROPDOWN \\
 // -------------------------------------------\\
 
-document.addEventListener('DOMContentLoaded', function() {
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     const dropdownButton = document.querySelector('.dropdown3-click-button');
+//     const dropdownContent = document.querySelector('.section-dropdown3');
+
+//     dropdownButton.addEventListener('click', function(event) {
+//         event.stopPropagation();  
+//         dropdownContent.classList.toggle('show');
+//     });
+
+//     document.addEventListener('click', function(event) {
+//         if (!dropdownContent.contains(event.target) && !dropdownButton.contains(event.target)) {
+//             dropdownContent.classList.remove('show');
+//         }
+//     });
+// });
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const dropdownButton = document.querySelector('.dropdown3-click-button');
     const dropdownContent = document.querySelector('.section-dropdown3');
 
-    dropdownButton.addEventListener('click', function(event) {
-        event.stopPropagation();  
+    dropdownButton.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent click from bubbling up to document
         dropdownContent.classList.toggle('show');
     });
 
-    document.addEventListener('click', function(event) {
-        if (!dropdownContent.contains(event.target) && !dropdownButton.contains(event.target)) {
+    document.addEventListener('click', function (event) {
+        const isClickInsideDropdown = dropdownContent.contains(event.target);
+        const isClickOnButton = dropdownButton.contains(event.target);
+
+        if (!isClickInsideDropdown && !isClickOnButton) {
             dropdownContent.classList.remove('show');
         }
     });
