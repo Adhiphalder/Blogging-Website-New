@@ -16,7 +16,7 @@ class CommunityController extends Controller
 
         $userId = Auth::id();
         if (!$userId) {
-            return redirect()->route('login')->with('error', 'Please log in first.');
+            return redirect()->route('register')->with('error', 'Please log in first.');
         }
 
         $createdCommunities = Communities::where('user_id', $userId)
@@ -145,47 +145,107 @@ class CommunityController extends Controller
 
     public function showCommunity($community_name)
     {
+        // $userId = Auth::id();
+
+        // if (!$userId) {
+        //     return redirect()->route('login')->with('error', 'Please log in first.');
+        // }
+    
+        // $community = Communities::where('community_name', $community_name)
+        //     ->where('community_suspend', 0)
+        //     ->first();
+    
+        // if (!$community) {
+        //     return redirect()->route('home')->with('error', 'Community not found or suspended.');
+        // }
+    
+        // $posts = Post::withCount('comments')
+        //     ->where('community_id', $community->community_id)
+        //     ->latest()
+        //     ->get();
+    
+        // $totalPosts = $posts->count();
+        // $totalMembers = \DB::table('join')->where('community_id', $community->community_id)->count();
+        // $totalActiveUsers = \DB::table('sessions')->whereNotNull('user_id')->count();
+        // $isMember = \DB::table('join')->where('user_id', $userId)->where('community_id', $community->community_id)->exists();
+    
+        // $createdCommunities = Communities::where('user_id', $userId)
+        //     ->where('community_suspend', 0)
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
+    
+        // $joinedCommunitiesRaw = \DB::table('join')
+        //     ->join('communities', 'join.community_id', '=', 'communities.community_id')
+        //     ->where('join.user_id', $userId)
+        //     ->where('communities.user_id', '!=', $userId)
+        //     ->where('communities.community_suspend', 0)
+        //     ->select('communities.*', 'join.created_at as joined_at')
+        //     ->orderBy('joined_at', 'desc')
+        //     ->get()
+        //     ->toArray();
+    
+        // $joinedCommunities = Communities::hydrate($joinedCommunitiesRaw);
+    
+        // return view('Community.Community', compact(
+        //     'community',
+        //     'posts',
+        //     'isMember',
+        //     'totalPosts',
+        //     'totalMembers',
+        //     'totalActiveUsers',
+        //     'createdCommunities',
+        //     'joinedCommunities'
+        // ));
+
+
+
         $userId = Auth::id();
 
-        if (!$userId) {
-            return redirect()->route('login')->with('error', 'Please log in first.');
-        }
-    
         $community = Communities::where('community_name', $community_name)
             ->where('community_suspend', 0)
             ->first();
-    
+
         if (!$community) {
             return redirect()->route('home')->with('error', 'Community not found or suspended.');
         }
-    
+
         $posts = Post::withCount('comments')
             ->where('community_id', $community->community_id)
             ->latest()
             ->get();
-    
+
         $totalPosts = $posts->count();
         $totalMembers = \DB::table('join')->where('community_id', $community->community_id)->count();
         $totalActiveUsers = \DB::table('sessions')->whereNotNull('user_id')->count();
-        $isMember = \DB::table('join')->where('user_id', $userId)->where('community_id', $community->community_id)->exists();
-    
-        $createdCommunities = Communities::where('user_id', $userId)
-            ->where('community_suspend', 0)
-            ->orderBy('created_at', 'desc')
-            ->get();
-    
-        $joinedCommunitiesRaw = \DB::table('join')
-            ->join('communities', 'join.community_id', '=', 'communities.community_id')
-            ->where('join.user_id', $userId)
-            ->where('communities.user_id', '!=', $userId)
-            ->where('communities.community_suspend', 0)
-            ->select('communities.*', 'join.created_at as joined_at')
-            ->orderBy('joined_at', 'desc')
-            ->get()
-            ->toArray();
-    
-        $joinedCommunities = Communities::hydrate($joinedCommunitiesRaw);
-    
+        $isMember = false;
+
+        $createdCommunities = collect();
+        $joinedCommunities = collect();
+
+        if ($userId) {
+            $isMember = \DB::table('join')
+                ->where('user_id', $userId)
+                ->where('community_id', $community->community_id)
+                ->exists();
+
+            $createdCommunities = Communities::where('user_id', $userId)
+                ->where('community_suspend', 0)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $joinedCommunitiesRaw = \DB::table('join')
+                ->join('communities', 'join.community_id', '=', 'communities.community_id')
+                ->where('join.user_id', $userId)
+                ->where('communities.user_id', '!=', $userId)
+                ->where('communities.community_suspend', 0)
+                ->select('communities.*', 'join.created_at as joined_at')
+                ->orderBy('joined_at', 'desc')
+                ->get()
+                ->toArray();
+
+            $joinedCommunities = Communities::hydrate($joinedCommunitiesRaw);
+        }
+
         return view('Community.Community', compact(
             'community',
             'posts',
@@ -200,29 +260,55 @@ class CommunityController extends Controller
 
     public function explore()
     {
-        $userId = Auth::id();
+        // $userId = Auth::id();
 
-        $otherCommunities = Communities::where('user_id', '!=', $userId)
-            ->where('community_suspend', 0) 
-            ->whereNotIn('community_id', function($query) use ($userId) {
-                $query->select('community_id')
-                    ->from('join')
-                    ->where('user_id', $userId);
-            })
-            ->get();
+        // $otherCommunities = Communities::where('user_id', '!=', $userId)
+        //     ->where('community_suspend', 0) 
+        //     ->whereNotIn('community_id', function($query) use ($userId) {
+        //         $query->select('community_id')
+        //             ->from('join')
+        //             ->where('user_id', $userId);
+        //     })
+        //     ->get();
 
-        foreach ($otherCommunities as $community) {
-            $community->members_count = \DB::table('join')->where('community_id', $community->community_id)->count();
+        // foreach ($otherCommunities as $community) {
+        //     $community->members_count = \DB::table('join')->where('community_id', $community->community_id)->count();
+        // }
+
+        // $groupedCommunities = $otherCommunities->groupBy('category');
+
+        // return view('Community.Explore', compact('groupedCommunities'));
+
+
+
+        $userId = Auth::check() ? Auth::id() : null;
+
+        $otherCommunitiesQuery = Communities::where('community_suspend', 0);
+    
+        if ($userId !== null) {
+            $otherCommunitiesQuery->where('user_id', '!=', $userId)
+                ->whereNotIn('community_id', function($query) use ($userId) {
+                    $query->select('community_id')
+                        ->from('join')
+                        ->where('user_id', $userId);
+                });
         }
-
+    
+        $otherCommunities = $otherCommunitiesQuery->get();
+    
+        foreach ($otherCommunities as $community) {
+            $community->members_count = \DB::table('join')
+                ->where('community_id', $community->community_id)
+                ->count();
+        }
+    
         $groupedCommunities = $otherCommunities->groupBy('category');
-
+    
         return view('Community.Explore', compact('groupedCommunities'));
     }
 
         public function editCommunity($community_name)
         {
-
 
             $community = Communities::where('community_name', $community_name)->first();
 
@@ -309,28 +395,63 @@ class CommunityController extends Controller
 
     public function joinCommunity(Request $request, $community_name)
     {
-        $userId = Auth::id();
-        $community = Communities::where('community_name', $community_name)->first();
+        // $userId = Auth::id();
+        // $community = Communities::where('community_name', $community_name)->first();
 
+        // if (!$community) {
+        //     return redirect()->route('home')->with('error', 'Community not found.');
+        // }
+
+        // $alreadyJoined = \DB::table('join')->where('user_id', $userId)->where('community_id', $community->community_id)->exists();
+
+        // if ($alreadyJoined) {
+        //     return redirect()->back()->with('error', 'You are already a member of this community.');
+        // }
+
+        // \DB::table('join')->insert([
+        //     'user_id' => $userId,
+        //     'community_id' => $community->community_id,
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+
+        // $community->increment('community_total_member');
+
+        // return redirect()->route('show.community', ['community_name' => $community_name])
+        //                 ->with('success', "You're successfully joined this community!");
+
+
+
+        $userId = Auth::id();
+
+        if (!$userId) {
+            return redirect()->route('register')->with('error', 'Please log in to join the community.');
+        }
+    
+        $community = Communities::where('community_name', $community_name)->first();
+    
         if (!$community) {
             return redirect()->route('home')->with('error', 'Community not found.');
         }
-
-        $alreadyJoined = \DB::table('join')->where('user_id', $userId)->where('community_id', $community->community_id)->exists();
-
+    
+        $alreadyJoined = \DB::table('join')
+            ->where('user_id', $userId)
+            ->where('community_id', $community->community_id)
+            ->exists();
+    
         if ($alreadyJoined) {
             return redirect()->back()->with('error', 'You are already a member of this community.');
         }
-
+    
         \DB::table('join')->insert([
             'user_id' => $userId,
             'community_id' => $community->community_id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
+    
         $community->increment('community_total_member');
-
+    
         return redirect()->route('show.community', ['community_name' => $community_name])
                         ->with('success', "You're successfully joined this community!");
     }
@@ -355,7 +476,7 @@ class CommunityController extends Controller
         $userId = Auth::id();
 
         if (!$userId) {
-            return redirect()->route('login')->with('error', 'Please log in first.');
+            return redirect()->route('register')->with('error', 'Please log in first.');
         }
 
         $community = Communities::where('community_name', $community_name)->first();

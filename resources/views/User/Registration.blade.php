@@ -79,7 +79,7 @@
                 <!-- Registration Part -->
                 <div id="register" class="register visible">
 
-                    @if($errors->any() || session('success'))
+                    {{-- @if($errors->any() || session('success'))
                         <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
                             @if($errors->any())
                                 @foreach($errors->all() as $error)
@@ -133,6 +133,80 @@
                                 document.querySelectorAll('[style*="animation: fadeOut"]').forEach(el => el.remove());
                             }, 6000);
                         </script>
+                    @endif --}}
+
+                    @if($errors->any() || session('success') || session('error'))
+                        <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+                            @if($errors->any())
+                                @foreach($errors->all() as $error)
+                                    <div style="
+                                        min-width: 250px;
+                                        margin-top: 10px;
+                                        padding: 15px 20px;
+                                        border-radius: 8px;
+                                        color: white;
+                                        background-color: #dc3545; /* Error color */
+                                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                        opacity: 0.95;
+                                        font-weight: 500;
+                                        animation: fadeOut 5s forwards;
+                                        text-align: center;
+                                    ">
+                                        {{ $error }}
+                                    </div>
+                                @endforeach
+                            @endif
+
+                            @if(session('success'))
+                                <div style="
+                                    min-width: 250px;
+                                    margin-top: 10px;
+                                    padding: 15px 20px;
+                                    border-radius: 8px;
+                                    color: white;
+                                    background-color: #28a745; /* Success color */
+                                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                    opacity: 0.95;
+                                    font-weight: 500;
+                                    animation: fadeOut 5s forwards;
+                                    text-align: center;
+                                ">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if(session('error'))
+                                <div style="
+                                    min-width: 250px;
+                                    margin-top: 10px;
+                                    padding: 15px 20px;
+                                    border-radius: 8px;
+                                    color: white;
+                                    background-color: #dc3545; /* Error color */
+                                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                    opacity: 0.95;
+                                    font-weight: 500;
+                                    animation: fadeOut 5s forwards;
+                                    text-align: center;
+                                ">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                        </div>
+
+                        <style>
+                            @keyframes fadeOut {
+                                0%   { opacity: 1; transform: translateY(0); }
+                                80%  { opacity: 1; transform: translateY(0); }
+                                100% { opacity: 0; transform: translateY(-20px); }
+                            }
+                        </style>
+
+                        <script>
+                            setTimeout(() => {
+                                document.querySelectorAll('[style*="animation: fadeOut"]').forEach(el => el.remove());
+                            }, 6000);
+                        </script>
                     @endif
 
                     <form action="{{ route('register.store') }}" method="POST">
@@ -168,7 +242,7 @@
                         </div>
                     @endif --}}
 
-                    @if($errors->any() || session('success'))
+                    {{-- @if($errors->any() || session('success'))
                         <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
                             @if($errors->any())
                                 @foreach($errors->all() as $error)
@@ -205,6 +279,81 @@
                                     text-align: center;
                                 ">
                                     {{ session('success') }}
+                                </div>
+                            @endif
+                        </div>
+
+                        <style>
+                            @keyframes fadeOut {
+                                0%   { opacity: 1; transform: translateY(0); }
+                                80%  { opacity: 1; transform: translateY(0); }
+                                100% { opacity: 0; transform: translateY(-20px); }
+                            }
+                        </style>
+
+                        <script>
+                            setTimeout(() => {
+                                document.querySelectorAll('[style*="animation: fadeOut"]').forEach(el => el.remove());
+                            }, 6000);
+                        </script>
+                    @endif --}}
+
+
+                    @if($errors->any() || session('success') || session('error'))
+                        <div style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 9999;">
+                            @if($errors->any())
+                                @foreach($errors->all() as $error)
+                                    <div style="
+                                        min-width: 250px;
+                                        margin-top: 10px;
+                                        padding: 15px 20px;
+                                        border-radius: 8px;
+                                        color: white;
+                                        background-color: #dc3545; /* Error color */
+                                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                        opacity: 0.95;
+                                        font-weight: 500;
+                                        animation: fadeOut 5s forwards;
+                                        text-align: center;
+                                    ">
+                                        {{ $error }}
+                                    </div>
+                                @endforeach
+                            @endif
+
+                            @if(session('success'))
+                                <div style="
+                                    min-width: 250px;
+                                    margin-top: 10px;
+                                    padding: 15px 20px;
+                                    border-radius: 8px;
+                                    color: white;
+                                    background-color: #28a745; /* Success color */
+                                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                    opacity: 0.95;
+                                    font-weight: 500;
+                                    animation: fadeOut 5s forwards;
+                                    text-align: center;
+                                ">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if(session('error'))
+                                <div style="
+                                    min-width: 250px;
+                                    margin-top: 10px;
+                                    padding: 15px 20px;
+                                    border-radius: 8px;
+                                    color: white;
+                                    background-color: #dc3545; /* Error color */
+                                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                    opacity: 0.95;
+                                    font-weight: 500;
+                                    animation: fadeOut 5s forwards;
+                                    text-align: center;
+                                ">
+                                    {{ session('error') }}
                                 </div>
                             @endif
                         </div>

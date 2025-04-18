@@ -22,11 +22,23 @@ class UserController extends Controller
     {
         // return view('User.Comment');
 
+
+        // $post = Post::with('user')->findOrFail($post_id);
+        
+        // $comments = Comment::where('post_id', $post_id)->with('user')->get();
+
+        // return view('User.Comment', compact('post', 'comments'));
+
+        if (!Auth::check()) {
+            return redirect()->route('register')->with('error', 'Please register or log in to view comments.');
+        }
+    
         $post = Post::with('user')->findOrFail($post_id);
         
         $comments = Comment::where('post_id', $post_id)->with('user')->get();
-
+    
         return view('User.Comment', compact('post', 'comments'));
+
     }
 
     public function storeComment(Request $request, $post_id)
@@ -50,7 +62,7 @@ class UserController extends Controller
 
         $userId = session('user_id');
         if (!$userId) {
-            return redirect()->route('login')->with('error', 'Please login to create a post.');
+            return redirect()->route('register')->with('error', 'Please login to create a post.');
         }
 
         $joinedCommunities = \DB::table('join')
@@ -137,7 +149,7 @@ class UserController extends Controller
         $userId = session('user_id'); 
 
         if (!$userId) {
-            return redirect()->route('login')->with('error', 'Please login to access your profile.');
+            return redirect()->route('register')->with('error', 'Please login to access your profile.');
         }
 
         $user = User::findOrFail($userId); 
@@ -164,17 +176,35 @@ class UserController extends Controller
         // return view('User.EditProfile');
 
 
-        $user = auth()->user(); 
+        // $user = auth()->user(); 
 
+        // if ($post_id) {
+        //     $post = Post::find($post_id);
+        //     if (!$post) {
+        //         return redirect()->route('profile')->with('error', 'Post not found.');
+        //     }
+
+        //     return view('User.EditProfile', compact('user', 'post'));
+        // }
+
+        // return view('User.EditProfile', compact('user'));
+
+
+        if (!Auth::check()) {
+            return redirect()->route('register')->with('error', 'Please register or log in to edit your profile.');
+        }
+    
+        $user = auth()->user(); 
+    
         if ($post_id) {
             $post = Post::find($post_id);
             if (!$post) {
                 return redirect()->route('profile')->with('error', 'Post not found.');
             }
-
+    
             return view('User.EditProfile', compact('user', 'post'));
         }
-
+    
         return view('User.EditProfile', compact('user'));
     }
 
@@ -330,27 +360,93 @@ class UserController extends Controller
     public function welcome() {
         // return view('welcome');
 
+
+        // if (!Auth::check()) {
+        //     $allPosts = collect(); 
+        //     return view('welcome', compact('allPosts'));
+        // }
+    
+        // $userId = Auth::id();
+    
+        // $followedUserIds = Follow::where('follower_id', $userId)->pluck('following_id');
+        // $joinedCommunityIds = Join::where('user_id', $userId)->pluck('community_id');
+    
+        // $userPosts = Post::with('community')->withCount('comments')
+        //     ->whereIn('user_id', $followedUserIds)
+        //     ->where(function ($query) {
+        //         $query->whereNull('community_id')
+        //               ->orWhereHas('community', function ($subQuery) {
+        //                   $subQuery->where('community_suspend', 0);
+        //               });
+        //     })
+        //     ->latest()
+        //     ->get();
+    
+        // $communityPosts = Post::with('community')->withCount('comments')
+        //     ->whereIn('community_id', $joinedCommunityIds)
+        //     ->whereHas('community', function ($query) {
+        //         $query->where('community_suspend', 0);
+        //     })
+        //     ->latest()
+        //     ->get();
+    
+        // $myCommunityPosts = Post::with('community')->withCount('comments')
+        //     ->where('user_id', $userId)
+        //     ->where(function ($query) {
+        //         $query->whereNull('community_id')
+        //               ->orWhereHas('community', function ($subQuery) {
+        //                   $subQuery->where('community_suspend', 0);
+        //               });
+        //     })
+        //     ->latest()
+        //     ->get();
+    
+        // $otherUserPosts = Post::with('community')->withCount('comments')
+        //     ->whereNotIn('user_id', $followedUserIds)
+        //     ->whereNotIn('community_id', $joinedCommunityIds)
+        //     ->where(function ($query) {
+        //         $query->whereNull('community_id')
+        //               ->orWhereHas('community', function ($subQuery) {
+        //                   $subQuery->where('community_suspend', 0);
+        //               });
+        //     })
+        //     ->latest()
+        //     ->get();
+    
+        // $allPosts = $userPosts->merge($communityPosts)->merge($myCommunityPosts)->merge($otherUserPosts)->shuffle();
+    
+        // return view('welcome', compact('allPosts'));
+
+
+
+
         if (!Auth::check()) {
-            $allPosts = collect(); 
+            $allPosts = Post::with('community')->withCount('comments')
+                ->whereHas('community', function ($query) {
+                    $query->where('community_suspend', 0);
+                })
+                ->latest()
+                ->get();
+
             return view('welcome', compact('allPosts'));
         }
-    
+        
         $userId = Auth::id();
-    
+        
         $followedUserIds = Follow::where('follower_id', $userId)->pluck('following_id');
         $joinedCommunityIds = Join::where('user_id', $userId)->pluck('community_id');
-    
+
         $userPosts = Post::with('community')->withCount('comments')
             ->whereIn('user_id', $followedUserIds)
             ->where(function ($query) {
                 $query->whereNull('community_id')
-                      ->orWhereHas('community', function ($subQuery) {
-                          $subQuery->where('community_suspend', 0);
-                      });
+                    ->orWhereHas('community', function ($subQuery) {
+                        $subQuery->where('community_suspend', 0);
+                    });
             })
             ->latest()
             ->get();
-    
+
         $communityPosts = Post::with('community')->withCount('comments')
             ->whereIn('community_id', $joinedCommunityIds)
             ->whereHas('community', function ($query) {
@@ -358,32 +454,32 @@ class UserController extends Controller
             })
             ->latest()
             ->get();
-    
+
         $myCommunityPosts = Post::with('community')->withCount('comments')
             ->where('user_id', $userId)
             ->where(function ($query) {
                 $query->whereNull('community_id')
-                      ->orWhereHas('community', function ($subQuery) {
-                          $subQuery->where('community_suspend', 0);
-                      });
+                    ->orWhereHas('community', function ($subQuery) {
+                        $subQuery->where('community_suspend', 0);
+                    });
             })
             ->latest()
             ->get();
-    
+
         $otherUserPosts = Post::with('community')->withCount('comments')
             ->whereNotIn('user_id', $followedUserIds)
             ->whereNotIn('community_id', $joinedCommunityIds)
             ->where(function ($query) {
                 $query->whereNull('community_id')
-                      ->orWhereHas('community', function ($subQuery) {
-                          $subQuery->where('community_suspend', 0);
-                      });
+                    ->orWhereHas('community', function ($subQuery) {
+                        $subQuery->where('community_suspend', 0);
+                    });
             })
             ->latest()
             ->get();
-    
+
         $allPosts = $userPosts->merge($communityPosts)->merge($myCommunityPosts)->merge($otherUserPosts)->shuffle();
-    
+        
         return view('welcome', compact('allPosts'));
         
     }

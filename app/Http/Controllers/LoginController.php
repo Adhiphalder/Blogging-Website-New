@@ -37,22 +37,48 @@ class LoginController extends Controller
     
         // return redirect('/')->with('success', 'Sign up successful!, now Login with your credentials');
 
+
+
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required',
+        // ]);
+    
+        // $user = new User();
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->password = bcrypt($request->password);
+        // $user->user_name = strtolower(str_replace(' ', '_', $request->name)) . rand(100, 999);
+        // $user->save();
+    
+        // $request->session()->put('user', $user);
+    
+        // return redirect()->route('register')->with('success', 'Sign up successful! Now login with your credentials.');
+
+
+
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
         ]);
-    
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->user_name = strtolower(str_replace(' ', '_', $request->name)) . rand(100, 999);
         $user->save();
-    
+
+        Auth::login($user);
+
         $request->session()->put('user', $user);
-    
-        return redirect()->route('register')->with('success', 'Sign up successful! Now login with your credentials.');
+        $request->session()->put('user_id', $user->user_id);
+
+        return redirect()->route('home')->with('success', 'Sign up successful!');
     }
 
     public function login(Request $request)
