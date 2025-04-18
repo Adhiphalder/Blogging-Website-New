@@ -1166,7 +1166,8 @@ transition: all 0.3s ease;
   width: 32px;
   border-radius: 17px; */
 
-  position: relative;
+  /* position: relative; */
+  margin: 0;
   width: 40px;
   height: 40px;
   object-fit: cover;
