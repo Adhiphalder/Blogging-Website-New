@@ -1051,7 +1051,7 @@ transition: all 0.3s ease;
   gap: 19px;
   background-color: #23282c;
   opacity: 0;
-  pointer-events: none;
+  pointer-events: auto;
   transition: all 0.3s ease;
   z-index: 1000;
 }
@@ -1059,6 +1059,7 @@ transition: all 0.3s ease;
 .section-dropdown3.show {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 
