@@ -308,7 +308,7 @@
                         <h3 class="sidebar__title">MANAGE</h3>
 
                         <div class="sidebar__list">
-                        <a href="#" class="sidebar__link active-link">
+                        <a href="/" class="sidebar__link active-link">
                             <i class="fa-solid fa-house"></i>
                             <span>Home</span>
                         </a>
