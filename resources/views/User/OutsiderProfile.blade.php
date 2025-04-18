@@ -1508,7 +1508,8 @@
                 </div>
                 <div>
                     <span>Comments</span>
-                    <span>120</span>
+                    {{-- <span>120</span> --}}
+                    <span>{{ $totalComments }}</span>
                 </div>
             </div>
 

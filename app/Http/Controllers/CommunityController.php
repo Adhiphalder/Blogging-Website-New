@@ -145,59 +145,6 @@ class CommunityController extends Controller
 
     public function showCommunity($community_name)
     {
-        // $userId = Auth::id();
-
-        // if (!$userId) {
-        //     return redirect()->route('login')->with('error', 'Please log in first.');
-        // }
-    
-        // $community = Communities::where('community_name', $community_name)
-        //     ->where('community_suspend', 0)
-        //     ->first();
-    
-        // if (!$community) {
-        //     return redirect()->route('home')->with('error', 'Community not found or suspended.');
-        // }
-    
-        // $posts = Post::withCount('comments')
-        //     ->where('community_id', $community->community_id)
-        //     ->latest()
-        //     ->get();
-    
-        // $totalPosts = $posts->count();
-        // $totalMembers = \DB::table('join')->where('community_id', $community->community_id)->count();
-        // $totalActiveUsers = \DB::table('sessions')->whereNotNull('user_id')->count();
-        // $isMember = \DB::table('join')->where('user_id', $userId)->where('community_id', $community->community_id)->exists();
-    
-        // $createdCommunities = Communities::where('user_id', $userId)
-        //     ->where('community_suspend', 0)
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
-    
-        // $joinedCommunitiesRaw = \DB::table('join')
-        //     ->join('communities', 'join.community_id', '=', 'communities.community_id')
-        //     ->where('join.user_id', $userId)
-        //     ->where('communities.user_id', '!=', $userId)
-        //     ->where('communities.community_suspend', 0)
-        //     ->select('communities.*', 'join.created_at as joined_at')
-        //     ->orderBy('joined_at', 'desc')
-        //     ->get()
-        //     ->toArray();
-    
-        // $joinedCommunities = Communities::hydrate($joinedCommunitiesRaw);
-    
-        // return view('Community.Community', compact(
-        //     'community',
-        //     'posts',
-        //     'isMember',
-        //     'totalPosts',
-        //     'totalMembers',
-        //     'totalActiveUsers',
-        //     'createdCommunities',
-        //     'joinedCommunities'
-        // ));
-
-
 
         $userId = Auth::id();
 
@@ -260,26 +207,6 @@ class CommunityController extends Controller
 
     public function explore()
     {
-        // $userId = Auth::id();
-
-        // $otherCommunities = Communities::where('user_id', '!=', $userId)
-        //     ->where('community_suspend', 0) 
-        //     ->whereNotIn('community_id', function($query) use ($userId) {
-        //         $query->select('community_id')
-        //             ->from('join')
-        //             ->where('user_id', $userId);
-        //     })
-        //     ->get();
-
-        // foreach ($otherCommunities as $community) {
-        //     $community->members_count = \DB::table('join')->where('community_id', $community->community_id)->count();
-        // }
-
-        // $groupedCommunities = $otherCommunities->groupBy('category');
-
-        // return view('Community.Explore', compact('groupedCommunities'));
-
-
 
         $userId = Auth::check() ? Auth::id() : null;
 
@@ -395,32 +322,6 @@ class CommunityController extends Controller
 
     public function joinCommunity(Request $request, $community_name)
     {
-        // $userId = Auth::id();
-        // $community = Communities::where('community_name', $community_name)->first();
-
-        // if (!$community) {
-        //     return redirect()->route('home')->with('error', 'Community not found.');
-        // }
-
-        // $alreadyJoined = \DB::table('join')->where('user_id', $userId)->where('community_id', $community->community_id)->exists();
-
-        // if ($alreadyJoined) {
-        //     return redirect()->back()->with('error', 'You are already a member of this community.');
-        // }
-
-        // \DB::table('join')->insert([
-        //     'user_id' => $userId,
-        //     'community_id' => $community->community_id,
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]);
-
-        // $community->increment('community_total_member');
-
-        // return redirect()->route('show.community', ['community_name' => $community_name])
-        //                 ->with('success', "You're successfully joined this community!");
-
-
 
         $userId = Auth::id();
 
@@ -473,50 +374,6 @@ class CommunityController extends Controller
 
     public function viewMemberCom($community_name)
     {
-        // $userId = Auth::id();
-
-        // if (!$userId) {
-        //     return redirect()->route('register')->with('error', 'Please log in first.');
-        // }
-
-        // $community = Communities::where('community_name', $community_name)->first();
-
-        // if (!$community) {
-        //     return redirect()->route('home')->with('error', 'Community not found.');
-        // }
-
-        // $isMember = \DB::table('join')->where('user_id', $userId)->where('community_id', $community->community_id)->exists();
-
-        // if (!$isMember) {
-        //     return redirect()->route('home')->with('error', 'You do not have permission to view this community.');
-        // }
-
-        // $members = \DB::table('join')
-        //     ->join('users', 'join.user_id', '=', 'users.user_id')
-        //     ->where('join.community_id', $community->community_id)
-        //     ->select('users.user_id', 'users.user_name', 'users.profile_pic')
-        //     ->get();
-
-        // $createdCommunities = Communities::where('user_id', $userId)
-        //     ->where('community_suspend', 0)
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
-
-        // $joinedCommunitiesRaw = \DB::table('join')
-        //     ->join('communities', 'join.community_id', '=', 'communities.community_id')
-        //     ->where('join.user_id', $userId)
-        //     ->where('communities.user_id', '!=', $userId)
-        //     ->where('communities.community_suspend', 0)
-        //     ->select('communities.*', 'join.created_at as joined_at')
-        //     ->orderBy('joined_at', 'desc')
-        //     ->get()
-        //     ->toArray();
-
-        // $joinedCommunities = Communities::hydrate($joinedCommunitiesRaw);
-
-        // return view('User.ViewMemberCom', compact('community', 'members', 'createdCommunities', 'joinedCommunities'));
-
-
 
         $userId = Auth::id();
 
