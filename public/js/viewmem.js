@@ -146,3 +146,80 @@ function showToast(message) {
         }, 500);
     }, 3000);
 }
+
+
+
+// ---------------------------------------\\
+// FOLLOW & UNFOLLOW BUTTON \\
+// ------------------------------------------\\
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".join").forEach(button => {
+        button.addEventListener("click", function(event) {
+            event.preventDefault();
+            const form = this.closest("form");
+            if (confirm("Do you want to follow this person?")) {
+                form.submit();
+                showToast("You have successfully followed this person!");
+            }
+        });
+    });
+});
+
+function unfollowUser (userId) {
+    if (!confirm("Are you sure you want to unfollow this person?")) {
+        return;
+    }
+
+    const form = document.getElementById(`unfollow-form-${userId}`);
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': formData.get('_token')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const newForm = document.createElement("form");
+            newForm.action = `/follow/${userId}`;
+            newForm.method = "POST";
+            newForm.innerHTML = `
+                <input type="hidden" name="_token" value="${formData.get('_token')}">
+                <button type="submit" class="join"><span>Follow</span></button>
+            `;
+
+            form.replaceWith(newForm);
+            showToast("You have successfully unfollowed this person!");
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function showToast(message) {
+    let toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add("show");
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+    }, 3000);
+}
+
+

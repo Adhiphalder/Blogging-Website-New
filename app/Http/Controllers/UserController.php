@@ -309,9 +309,39 @@ class UserController extends Controller
         return view('User.Profile', compact('user'));
     }
 
-    public function outprofile($username){
+    public function outprofile($username)
+    {
 
         // return view('User.OutsiderProfile'); 
+
+
+        // $user = User::where('user_name', $username)->first();
+
+        // if (!$user) {
+        //     return redirect()->route('home')->with('error', 'User not found.');
+        // }
+    
+        // $userId = $user->user_id;
+    
+        // $posts = Post::with('community')->withCount('comments')
+        //     ->where('user_id', $userId)
+        //     ->where(function ($query) {
+        //         $query->whereNull('community_id')
+        //             ->orWhereHas('community', function ($subQuery) {
+        //                 $subQuery->where('community_suspend', 0);
+        //             });
+        //     })
+        //     ->latest()
+        //     ->get();
+    
+        // $totalPosts = $posts->count();
+    
+        // $totalFollowers = Follow::where('following_id', $userId)->count();
+    
+        // $totalComments = Comment::where('user_id', $userId)->count();
+    
+        // return view('User.OutsiderProfile', compact('user', 'posts', 'totalPosts', 'totalFollowers', 'totalComments'));
+
 
 
         $user = User::where('user_name', $username)->first();
@@ -444,22 +474,45 @@ class UserController extends Controller
 
     public function follow(Request $request, $user_id)
     {
-        $followerId = Auth::id();
+        // $followerId = Auth::id();
 
+        // if ($followerId == $user_id) {
+        //     return redirect()->back()->with('error', 'You cannot follow yourself.');
+        // }
+
+        // if (Follow::where('follower_id', $followerId)->where('following_id', $user_id)->exists()) {
+        //     return redirect()->back()->with('error', 'Already following this user.');
+        // }
+
+        // Follow::create([
+        //     'follower_id' => $followerId,
+        //     'following_id' => $user_id,
+        // ]);
+
+        // return redirect()->back()->with('success', 'User followed successfully!');
+
+
+        if (!Auth::check()) {
+            return redirect()->route('register')->with('error', 'Please log in to follow a user.');
+        }
+    
+        $followerId = Auth::id();
+    
         if ($followerId == $user_id) {
             return redirect()->back()->with('error', 'You cannot follow yourself.');
         }
-
+    
         if (Follow::where('follower_id', $followerId)->where('following_id', $user_id)->exists()) {
             return redirect()->back()->with('error', 'Already following this user.');
         }
-
+    
         Follow::create([
             'follower_id' => $followerId,
             'following_id' => $user_id,
         ]);
-
+    
         return redirect()->back()->with('success', 'User followed successfully!');
+    
 
     }
 

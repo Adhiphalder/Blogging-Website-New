@@ -495,7 +495,8 @@
                 </div>
                 {{-- <button onclick="toggleButton(this)" class="join" style="position: absolute; left: 900px; top: 48px;"><span>Follow</span></button> --}}
 
-                @if(auth()->user()->isFollowing($user->user_id))
+                {{-- @if(auth()->user()->isFollowing($user->user_id)) --}}
+                @if(auth()->check() && auth()->user()->isFollowing($user->user_id))
                     <form id="unfollow-form-{{ $user->user_id }}" action="{{ route('unfollow', ['user_id' => $user->user_id]) }}" method="POST" class="unfollow-form">
                         @csrf
                         <button type="button" class="joined" onclick="unfollowUser ('{{ $user->user_id }}')">

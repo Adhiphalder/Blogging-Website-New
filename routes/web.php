@@ -92,8 +92,6 @@ Route::post('/admin/update-password', [AdminController::class, 'updatePassword']
   #COMMUNITY
 \*-------------------------*/
 
-// Route::get('/createcommunity', [CommunityController::class, 'createcommunity']);
-
 Route::get('/createcommunity', [CommunityController::class, 'createcommunity'])->name('create.community');
 
 Route::post('/storecommunity', [CommunityController::class, 'storeCommunity'])->name('store.community');
@@ -122,8 +120,6 @@ Route::post('/community/join/{community_name}', [CommunityController::class, 'jo
 
 Route::post('/community/leave/{community_name}', [CommunityController::class, 'leaveCommunity'])->name('leave.community');
 
-// Route::get('/viewmembercom', [CommunityController::class, 'viewmembercom']);
-
 Route::get('/viewmembercom/{community_name}', [CommunityController::class, 'viewmembercom'])->name('viewmembercom');
 
 
@@ -131,8 +127,6 @@ Route::get('/viewmembercom/{community_name}', [CommunityController::class, 'view
 /*-------------*\
   #USER
 \*--------------*/
-
-// Route::get('/comment', [UserController::class, 'comment']);
 
 Route::get('/comment/{post_id}', [UserController::class, 'comment'])->name('comment');
 
@@ -145,8 +139,6 @@ Route::post('/create', [UserController::class, 'storePost'])->name('post.store')
 Route::get('/editprofile', [UserController::class, 'editprofile']);
 
 Route::get('/profile/edit/{id}', [UserController::class, 'editprofile'])->name('profile.edit');
-
-// Route::get('/profile/edit/{post_id}', [UserController::class, 'editprofile'])->name('profile.edit');
 
 Route::post('/post/update/{post_id}', [UserController::class, 'updatePost'])->name('update.post');
 

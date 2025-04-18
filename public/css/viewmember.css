@@ -1269,8 +1269,10 @@ main{
   margin-bottom: 20px;
 }
 
-.comm-info-span{
-
+.comm-info{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 .profile-info1 {
@@ -1423,7 +1425,7 @@ a:hover .com-follower-profile-text-inner-span {
 .not-found {
   position: relative;
   left: -53px;
-  top: -40px;
+  top: 160px;
   display: flex;
   flex-direction: column; 
   align-items: center; 
@@ -1434,3 +1436,108 @@ a:hover .com-follower-profile-text-inner-span {
 .not-found h3{
     margin-top: -6px;
 }
+
+
+
+
+.join {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 2;
+  height: 35px;
+  width: 87px;
+  left: 287px;
+  /* top: -7px; */
+  transition: all 200ms linear;
+  border-radius: 50px;
+  border: none;
+  background-color: #102770;
+  letter-spacing: 1px;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+  cursor: pointer;
+  
+  }
+  
+  .join:hover{
+  background-color: #2441a0; 
+  color: #BEC0D6;
+  transition: all 0.3s ease; 
+  }
+  
+  
+  .joined {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 15px;
+  line-height: 2;
+  height: 35px;
+  width: 90px;
+  top: -7px;
+  left: 287px;
+  transition: all 200ms linear;
+  border-radius: 50px;
+  border: 1px solid #787C7E;
+  /* background-color: #102770; */
+  letter-spacing: 1px;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+  cursor: pointer;
+  
+  }
+  
+  .joined:hover{
+  color: #BEC0D6;
+  transition: all 0.3s ease; 
+  border: 1px solid #4e4e4e;
+  }
+  
+  
+  .toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 12px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+  }
+  
+  .toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+  }
