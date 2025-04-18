@@ -554,8 +554,9 @@
                     </div>
                 </div>
 
-
-                <button href="#" class="create2"><i class="fa-solid fa-plus"></i> <span>Create Post</span></button>
+                <a href="/create">
+                    <button  class="create2"><i class="fa-solid fa-plus"></i> <span>Create Post</span></button>
+                </a>
 
                 {{-- <form action="{{ route('join.community', ['community_name' => $community->community_name]) }}" method="POST">
                     @csrf
