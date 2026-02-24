@@ -63,6 +63,7 @@ body{
     .left-div {
         width: 50%;
         margin-top: 88px;
+
     }
     
     .left-main-work {
@@ -154,8 +155,8 @@ body{
     }
     
     .register-button, .login-button , .forgot-button{
-        margin-left: 88px;
-        margin-top: 7px;
+        /* margin-left: 88px;
+        margin-top: 7px; */
     }
     
     /* Right div styling */
@@ -309,8 +310,12 @@ input:focus{
 }
 
 .register-button{
-    margin-left: 88px;
+    margin-left: 102px; 
     margin-top: 7px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+
 }
 
 .login-button{
